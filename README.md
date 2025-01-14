@@ -1,2 +1,3 @@
-# nongula
-Nutrition tracking application
+# Nongula
+
+Diet tracking application made using React.js
