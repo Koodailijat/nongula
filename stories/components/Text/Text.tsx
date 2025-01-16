@@ -1,9 +1,9 @@
 export interface TextProps {
     /** Text to show **/
     children: string;
-    /** Text color, defaults to primary **/
+    /** Text color **/
     mode?: 'primary' | 'secondary';
-    /** Text size, defaults to medium **/
+    /** Text size **/
     size?: 'small' | 'medium' | 'large';
 }
 
@@ -16,7 +16,7 @@ export const Text = ({
 }: TextProps) => {
     return (
         <span
-            className={['text', `text--${size}`, `text--${mode}`].join(' ')}
+            className={[`text--${size}`, `text--${mode}`].join(' ')}
             {...props}>
             {children}
         </span>
