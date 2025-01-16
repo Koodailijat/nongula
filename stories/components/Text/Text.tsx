@@ -1,4 +1,3 @@
-
 export interface TextProps {
     /** Text to show **/
     children: string;
