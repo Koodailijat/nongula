@@ -1,4 +1,3 @@
-import './text.scss';
 
 export interface TextProps {
     /** Text to show **/
