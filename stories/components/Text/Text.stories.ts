@@ -11,7 +11,6 @@ const meta = {
     argTypes: {
         children: { control: 'text' },
     },
-    args: {},
 } satisfies Meta<typeof Text>;
 
 export default meta;

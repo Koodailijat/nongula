@@ -17,10 +17,10 @@ export const Text = ({
     ...props
 }: TextProps) => {
     return (
-        <p
+        <span
             className={['text', `text--${size}`, `text--${mode}`].join(' ')}
             {...props}>
             {children}
-        </p>
+        </span>
     );
 };

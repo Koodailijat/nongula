@@ -1,6 +1,4 @@
-.text {
-    font-family: Roboto, 'Helvetica Neue', sans-serif;
-}
+@use '../../globals.scss' as *;
 
 .text--small {
     font-size: 12px;
@@ -15,9 +13,9 @@
 }
 
 .text--primary {
-    color: #212427;
+    color: $primary-text;
 }
 
 .text--secondary {
-    color: #ffffff;
+    color: $secondary-text;
 }
