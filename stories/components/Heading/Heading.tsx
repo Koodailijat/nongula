@@ -4,11 +4,11 @@ export interface HeadingProps {
     /** Heading text to show **/
     children: string;
     /** Heading level **/
-    level?: 1 | 2 | 3 | 4 | 5 | 6;
+    level: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
 /** Primary UI component for heading */
-export const Heading = ({ children, level = 1, ...props }: HeadingProps) => {
+export const Heading = ({ children, level, ...props }: HeadingProps) => {
     const HeadingElement = `h${level}` as ElementType;
     return (
         <HeadingElement
