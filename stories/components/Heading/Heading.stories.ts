@@ -36,18 +36,21 @@ export const Level3: Story = {
         level: 3,
     },
 };
+
 export const Level4: Story = {
     args: {
         children: 'Lorem Ipsum',
         level: 4,
     },
 };
+
 export const Level5: Story = {
     args: {
         children: 'Lorem Ipsum',
         level: 5,
     },
 };
+
 export const Level6: Story = {
     args: {
         children: 'Lorem Ipsum',
