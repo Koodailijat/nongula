@@ -36,8 +36,8 @@ export const Textfield = ({
             alignItems: "center"
         }}>
             {icon_side === "left" && icon && (
-                <div className="storybook-textfield-icon">
-                    <img src={icon} alt="Icon" className="storybook-textfield-icon" style={{width: "18px"}}/>
+                <div className="storybook-textfield-icon" style={{display: "flex", alignItems: "center"}}>
+                    <img src={icon} alt="Icon" className="storybook-textfield-icon" style={{width: "20px"}}/>
                 </div>
             )}
             <div className="storybook-textfield-content">
@@ -48,8 +48,8 @@ export const Textfield = ({
                 </span>
             </div>
             {icon_side === "right" && icon && (
-                <div className="storybook-textfield-icon">
-                    <img src={icon} alt="Icon" className="storybook-textfield-icon" style={{width: "20px"}}/>
+                <div className="storybook-textfield-icon" style={{display: "flex", alignItems: "center"}}>
+                    <img src={icon} alt="Icon" className="storybook-textfield-icon" style={{width: "20px", alignItems: "center"}}/>
                 </div>
             )}
         </div>
