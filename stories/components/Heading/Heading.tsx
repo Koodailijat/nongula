@@ -1,11 +1,9 @@
-import { ElementType } from 'react';
+import { ComponentProps, ElementType } from 'react';
 
-export interface HeadingProps {
-    /** Heading text to show **/
-    children: string;
+type HeadingProps = ComponentProps<'h1'> & {
     /** Heading level **/
     level: 1 | 2 | 3 | 4 | 5 | 6;
-}
+};
 
 /** Primary UI component for heading */
 export const Heading = ({ children, level, ...props }: HeadingProps) => {

@@ -1,11 +1,11 @@
-export interface TextProps {
-    /** Text to show **/
-    children: string;
+import { ComponentProps } from 'react';
+
+type TextProps = ComponentProps<'span'> & {
     /** Text color **/
     mode?: 'primary' | 'secondary';
     /** Text size **/
     size?: 'small' | 'medium' | 'large';
-}
+};
 
 /** Primary UI component for text */
 export const Text = ({
