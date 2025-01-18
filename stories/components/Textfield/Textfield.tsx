@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 
 export interface TextfieldProps {
     /** Text to show **/
@@ -8,7 +8,7 @@ export interface TextfieldProps {
     /** Text size, defaults to medium **/
     size?: 'small' | 'medium' | 'large';
     /** Side of the icon **/
-    icon_side?: 'left' | 'right';
+    iconSide?: 'left' | 'right';
     /** URL of the icon image **/
     icon?: string;
 }
@@ -18,56 +18,41 @@ export const Textfield = ({
     children,
     size = 'medium',
     mode = 'primary',
-    icon_side = 'left',
+    iconSide = 'left',
     icon = '../../../search_icon_textfield.PNG',
     ...props
 }: TextfieldProps) => {
+    const [text, setText] = useState(children);
+
     return (
-        <div
-            className="storybook-textfield-wrapper"
-            style={{
-                display: 'flex',
-                flexDirection: 'row',
-                gap: '10px',
-                outline: '1px solid black',
-                borderRadius: '15px',
-                padding: '10px',
-                justifyContent:
-                    icon_side === 'right' ? 'flex-end' : 'flex-start',
-                width: '200px',
-                alignItems: 'center',
-            }}>
-            {icon_side === 'left' && icon && (
-                <div
-                    className="storybook-textfield-icon"
-                    style={{ display: 'flex', alignItems: 'center' }}>
+        <div className="textfield-wrapper">
+            {iconSide === 'left' && icon && (
+                <div className="textfield-icon">
                     <img
                         src={icon}
                         alt="Icon"
-                        className="storybook-textfield-icon"
+                        className="textfield-icon"
                         style={{ width: '20px' }}
                     />
                 </div>
             )}
-            <div className="storybook-textfield-content">
+            <div className="textfield-content">
                 <span
+                    id={'textfield-span'}
                     className={['text', `text--${size}`, `text--${mode}`].join(
                         ' '
                     )}
-                    {...props}>
-                    {children}
+                    {...props}
+                    contentEditable
+                    onInput={(e) =>
+                        setText((e.target as HTMLElement).innerText)
+                    }>
+                    {text}
                 </span>
             </div>
-            {icon_side === 'right' && icon && (
-                <div
-                    className="storybook-textfield-icon"
-                    style={{ display: 'flex', alignItems: 'center' }}>
-                    <img
-                        src={icon}
-                        alt="Icon"
-                        className="storybook-textfield-icon"
-                        style={{ width: '20px', alignItems: 'center' }}
-                    />
+            {iconSide === 'right' && icon && (
+                <div className="textfield-icon">
+                    <img src={icon} alt="Icon" className="textfield-icon" />
                 </div>
             )}
         </div>
