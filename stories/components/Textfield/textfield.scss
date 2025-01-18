@@ -17,15 +17,15 @@
 }
 .textfield--small {
     padding: 10px 16px;
-    font-size: 12px;
+    font-size: 0.75rem;
 }
 .textfield--medium {
     padding: 11px 20px;
-    font-size: 14px;
+    font-size: 1rem;
 }
 .storybook-textfield--large {
     padding: 12px 24px;
-    font-size: 16px;
+    font-size: 1.25rem;
 }
 
 .textfield-icon {
@@ -62,7 +62,6 @@
     align-items: center;
     overflow: hidden;
 }
-
 
 .textfield-wrapper {
     position: relative;
