@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Textfield } from './Textfield';
+import { TextField } from './TextField.tsx';
 
 const meta = {
-    title: 'Textfield',
-    component: Textfield,
+    title: 'TextField',
+    component: TextField,
     parameters: {
         layout: 'centered',
     },
@@ -11,7 +11,7 @@ const meta = {
     argTypes: {
         children: { control: 'text' },
     },
-} satisfies Meta<typeof Textfield>;
+} satisfies Meta<typeof TextField>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
