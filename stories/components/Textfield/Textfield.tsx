@@ -1,4 +1,9 @@
 import { useState } from 'react';
+import {
+    TextField as RATextfield,
+    Label as RALabel,
+    Input as RAInput,
+} from 'react-aria-components';
 
 export interface TextfieldProps {
     /** Text to show **/
@@ -22,7 +27,7 @@ export const Textfield = ({
     icon = '../../../search_icon_textfield.PNG',
     ...props
 }: TextfieldProps) => {
-    const [text, setText] = useState(children);
+    const [text, setText] = useState('');
 
     return (
         <div className="textfield-wrapper">
@@ -37,24 +42,22 @@ export const Textfield = ({
                 </div>
             )}
             <div className="textfield-content">
-                <span
+                <RATextfield
                     id={'textfield-span'}
                     className={['text', `text--${size}`, `text--${mode}`].join(
                         ' '
                     )}
                     {...props}
-                    contentEditable
-                    onInput={(e) =>
-                        setText((e.target as HTMLElement).innerText)
-                    }>
-                    {text}
-                </span>
+                    onChange={setText}>
+                    <RAInput>{text}</RAInput>
+                </RATextfield>
             </div>
             {iconSide === 'right' && icon && (
                 <div className="textfield-icon">
                     <img src={icon} alt="Icon" className="textfield-icon" />
                 </div>
             )}
+            {children}
         </div>
     );
 };

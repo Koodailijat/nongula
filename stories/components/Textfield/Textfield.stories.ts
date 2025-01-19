@@ -20,7 +20,7 @@ export const Medium_and_Right: Story = {
     args: {
         children: 'Search',
         size: 'medium',
-        icon_side: 'right',
+        iconSide: 'right',
     },
 };
 
