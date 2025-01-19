@@ -2,10 +2,11 @@ import { useState } from 'react';
 import {
     TextField as RATextfield,
     Input as RAInput,
+    TextFieldProps as RATextfieldProps,
     Label as RALabel,
 } from 'react-aria-components';
 
-export interface TextfieldProps {
+export interface TextfieldProps extends RATextfieldProps {
     /** Text to show **/
     children: string;
     /** Text color, defaults to primary **/
@@ -16,6 +17,7 @@ export interface TextfieldProps {
     iconSide?: 'left' | 'right';
     /** URL of the icon image **/
     icon?: string;
+    placeholder?: string;
 }
 
 /** Primary UI component for text */
@@ -41,7 +43,6 @@ export const Textfield = ({
                             style={{ width: '20px' }}
                         />
                     </div>
-                    <RALabel>{children}</RALabel>
                 </div>
             )}
             <div>
@@ -53,6 +54,7 @@ export const Textfield = ({
                         `text--${size}`,
                         `text--${mode}`,
                     ].join(' ')}
+                    placeholder={'Search'}
                     {...props}
                     onChange={setText}>
                     <RAInput id={'textfield-RAInput'}></RAInput>
@@ -68,7 +70,6 @@ export const Textfield = ({
                             style={{ width: '20px' }}
                         />
                     </div>
-                    <RALabel>{children}</RALabel>
                 </div>
             )}
         </div>
