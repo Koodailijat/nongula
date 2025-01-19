@@ -47,6 +47,22 @@
     padding: 0 5px;
 }
 
+#textfield-RAInput {
+    border: none;
+}
+
+input[data-hovered], input[data-focused], input[data-focus-visible] {
+    border: none;
+    outline: none;
+}
+
+.icon-and-text {
+    display: flex;
+    gap: 5px;
+}
+
+
+
 #textfield-span {
     display: inline-block;
 }

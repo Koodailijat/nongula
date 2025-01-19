@@ -2,6 +2,7 @@ import { useState } from 'react';
 import {
     TextField as RATextfield,
     Input as RAInput,
+    Label as RALabel,
 } from 'react-aria-components';
 
 export interface TextfieldProps {
@@ -31,32 +32,45 @@ export const Textfield = ({
     return (
         <div className="textfield-wrapper">
             {iconSide === 'left' && icon && (
-                <div className="textfield-icon">
-                    <img
-                        src={icon}
-                        alt="Icon"
-                        className="textfield-icon"
-                        style={{ width: '20px' }}
-                    />
+                <div className={'icon-and-text'}>
+                    <div className="textfield-icon">
+                        <img
+                            src={icon}
+                            alt="Icon"
+                            className="textfield-icon"
+                            style={{ width: '20px' }}
+                        />
+                    </div>
+                    <RALabel>{children}</RALabel>
                 </div>
             )}
-            <div className="textfield-content">
+            <div>
                 <RATextfield
                     id={'textfield-span'}
-                    className={['text', `text--${size}`, `text--${mode}`].join(
-                        ' '
-                    )}
+                    className={[
+                        'textfield-content',
+                        'text',
+                        `text--${size}`,
+                        `text--${mode}`,
+                    ].join(' ')}
                     {...props}
                     onChange={setText}>
-                    <RAInput>{text}</RAInput>
+                    <RAInput id={'textfield-RAInput'}></RAInput>
                 </RATextfield>
             </div>
             {iconSide === 'right' && icon && (
-                <div className="textfield-icon">
-                    <img src={icon} alt="Icon" className="textfield-icon" />
+                <div className={'icon-and-text'}>
+                    <div className="textfield-icon">
+                        <img
+                            src={icon}
+                            alt="Icon"
+                            className="textfield-icon"
+                            style={{ width: '20px' }}
+                        />
+                    </div>
+                    <RALabel>{children}</RALabel>
                 </div>
             )}
-            {children}
         </div>
     );
 };
