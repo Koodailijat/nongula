@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import {
     TextField as RATextfield,
-    Label as RALabel,
     Input as RAInput,
 } from 'react-aria-components';
 
