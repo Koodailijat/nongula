@@ -6,7 +6,7 @@
     header {
         display: flex;
         align-items: center;
-        margin: 0 4px .5rem 4px;
+        margin: 0 4px 0.5rem 4px;
 
         .react-aria-Heading {
             flex: 1;
@@ -20,7 +20,7 @@
         width: 2rem;
         height: 2rem;
         padding: 0;
-        background: #519A58;
+        background: #519a58;
         border: none;
         border-radius: 4px;
         color: white;
@@ -35,8 +35,8 @@
         outline: none;
         margin: 1px;
         forced-color-adjust: none;
-        background: #EBEDF0;
-        border: 1px solid #DFE1E4;
+        background: #ebedf0;
+        border: 1px solid #dfe1e4;
         color: rgba(0, 0, 0, 0);
 
         &[data-outside-month] {
