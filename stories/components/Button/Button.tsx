@@ -19,20 +19,31 @@ export const Button = ({
     label,
     ...props
 }: ButtonProps) => {
-    const mode = primary
-        ? 'storybook-button--primary'
-        : 'storybook-button--secondary';
+    const mode = primary ? 'button--primary' : 'button--secondary';
     return (
-        <button
-            type="button"
-            className={[
-                'storybook-button',
-                `storybook-button--${size}`,
-                mode,
-            ].join(' ')}
-            style={{ backgroundColor }}
-            {...props}>
-            {label}
-        </button>
+        <div className="button-wrapper">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="lucide lucide-circle-plus">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M8 12h8" />
+                <path d="M12 8v8" />
+            </svg>
+            <button
+                type="button"
+                className={['button', `button--${size}`, mode].join(' ')}
+                style={{ backgroundColor }}
+                {...props}>
+                {label}
+            </button>
+        </div>
     );
 };
