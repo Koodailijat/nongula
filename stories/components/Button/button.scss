@@ -6,7 +6,7 @@
     justify-content: space-between;
     padding: 0 10px 0 10px;
     border-radius: 10px;
-    width: 100%;
+    min-width: 60px;
 }
 
 .button {
@@ -31,7 +31,7 @@
     font-size: 0.75rem;
 }
 .button--medium {
-    padding: 11px 20px;
+    padding: 10px 20px;
     font-size: 14px;
     font-size: 1rem;
 }
