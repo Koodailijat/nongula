@@ -28,7 +28,6 @@ export const TextField = ({
     icon = '../../../search_icon_textfield.PNG',
     ...props
 }: TextFieldProps) => {
-    const [text, setText] = useState('');
 
     return (
         <div className="textfield-wrapper">
@@ -54,9 +53,8 @@ export const TextField = ({
                         `text--${mode}`,
                     ].join(' ')}
                     placeholder={children}
-                    value={text}
                     {...props}
-                    onChange={setText}>
+                    >
                     <RAInput id={'textfield-RAInput'}></RAInput>
                 </RATextfield>
             </div>
