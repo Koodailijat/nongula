@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
     TextField as RATextfield,
     Input as RAInput,
@@ -28,7 +27,6 @@ export const TextField = ({
     icon = '../../../search_icon_textfield.PNG',
     ...props
 }: TextFieldProps) => {
-
     return (
         <div className="textfield-wrapper">
             {iconSide === 'left' && icon && (
@@ -53,8 +51,7 @@ export const TextField = ({
                         `text--${mode}`,
                     ].join(' ')}
                     placeholder={children}
-                    {...props}
-                    >
+                    {...props}>
                     <RAInput id={'textfield-RAInput'}></RAInput>
                 </RATextfield>
             </div>
