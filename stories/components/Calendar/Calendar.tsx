@@ -28,9 +28,22 @@ interface CalendarProps {
 }
 
 function getColor(value: number) {
-    return value < 0.3
-        ? `hsl(${((1 - value) * 120).toString(10)},100%,50%)`
-        : `hsl(${((1.6 - value) * 120).toString(10)},100%,50%)`;
+    if (value < 0.2) {
+        return '#8EFFC1';
+    } else if (value < 0.4) {
+        return '#1DBC60';
+    } else if (value < 0.6) {
+        return '#0DAC50';
+    } else if (value < 0.8) {
+        return '#009C41';
+    } else if (value < 0.9) {
+        return '#007A2A';
+    } else if (value < 1.1) {
+        return '#D4D23A';
+    } else if (value < 1.3) {
+        return '#D84F3A';
+    }
+    return '#E02323';
 }
 
 function getStyle(
