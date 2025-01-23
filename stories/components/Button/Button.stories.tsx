@@ -28,11 +28,10 @@ export const Medium: Story = {
     },
 };
 
-export const Large_and_outlined: Story = {
+export const Large: Story = {
     args: {
         size: 'large',
         label: 'Button',
-        outline: true,
     },
 };
 
