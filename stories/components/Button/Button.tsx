@@ -5,7 +5,7 @@ export interface ButtonProps {
     /** Button size */
     size?: 'small' | 'medium' | 'large';
     /** Button Text */
-    label: string;
+    children: string;
     /** Optional click handler */
     onClick?: () => void;
     /** Icon as react component */
@@ -15,7 +15,7 @@ export interface ButtonProps {
 /** Primary UI component for user interaction */
 export const Button = ({
     size = 'medium',
-    label,
+    children,
     icon,
     ...props
 }: ButtonProps) => {
@@ -26,7 +26,7 @@ export const Button = ({
             )}
             {...props}>
             {icon}
-            {label}
+            {children}
         </RAButton>
     );
 };
