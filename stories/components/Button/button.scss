@@ -9,12 +9,8 @@
     background-color: #519a58;
 }
 
-.button-wrapper--outlined {
+.button-wrapper--outline {
     border: 2px solid black;
-}
-
-.button-wrapper--none {
-    border: none;
 }
 
 .button {
@@ -29,23 +25,18 @@
     background-color: #519a58;
     color: white;
 }
-.button--secondary {
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
-    background-color: transparent;
-    color: #333;
-}
+
 .button--small {
     padding: 10px 16px;
-    font-size: 12px;
     font-size: 0.75rem;
 }
+
 .button--medium {
     padding: 10px 20px;
-    font-size: 14px;
     font-size: 1rem;
 }
+
 .button--large {
     padding: 12px 24px;
-    font-size: 16px;
     font-size: 1.25rem;
 }
