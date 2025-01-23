@@ -1,5 +1,4 @@
 .button-wrapper {
-    background-color: #519a58;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -7,6 +6,15 @@
     padding: 0 10px 0 10px;
     border-radius: 10px;
     min-width: 60px;
+    background-color: #519a58;
+}
+
+.button-wrapper--outlined {
+    border: 2px solid black;
+}
+
+.button-wrapper--none {
+    border: none;
 }
 
 .button {
@@ -16,6 +24,7 @@
     font-weight: 700;
     line-height: 1;
 }
+
 .button--primary {
     background-color: #519a58;
     color: white;

@@ -7,6 +7,8 @@ export interface ButtonProps {
     size?: 'small' | 'medium' | 'large';
     /** Button contents */
     label: string;
+    /** Button style */
+    style?: 'outlined' | 'none';
     /** Optional click handler */
     onClick?: () => void;
 }
@@ -17,11 +19,17 @@ export const Button = ({
     size = 'medium',
     backgroundColor,
     label,
+    style = 'none',
     ...props
 }: ButtonProps) => {
     const mode = primary ? 'button--primary' : 'button--secondary';
     return (
-        <div className="button-wrapper">
+        <div
+            className={[
+                'button-wrapper',
+                `button-wrapper--${style}`,
+                `button--${style}`,
+            ].join(' ')}>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

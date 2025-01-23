@@ -36,11 +36,12 @@ export const Medium: Story = {
     },
 };
 
-export const Large: Story = {
+export const Large_and_outlined: Story = {
     args: {
         primary: true,
         size: 'large',
         label: 'Button',
+        style: 'outlined',
     },
 };
 
@@ -49,5 +50,6 @@ export const Small: Story = {
         primary: true,
         size: 'small',
         label: 'Button',
+        style: 'none ',
     },
 };
