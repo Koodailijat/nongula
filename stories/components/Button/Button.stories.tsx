@@ -16,14 +16,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
     args: {
-        label: 'Button',
+        children: 'Button',
         icon: <CirclePlus color="white" />,
     },
 };
 
 export const Medium: Story = {
     args: {
-        label: 'Button',
+        children: 'Button',
         icon: <User color="white" />,
     },
 };
@@ -31,13 +31,13 @@ export const Medium: Story = {
 export const Large: Story = {
     args: {
         size: 'large',
-        label: 'Button',
+        children: 'Button',
     },
 };
 
 export const Small: Story = {
     args: {
         size: 'small',
-        label: 'Button',
+        children: 'Button',
     },
 };
