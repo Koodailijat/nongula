@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button as RAButton } from 'react-aria-components';
-import { AriaButtonProps as RAButtonProps } from "@react-types/button";
+import { AriaButtonProps as RAButtonProps } from '@react-types/button';
 
 export interface ButtonProps extends RAButtonProps {
     /** Button size */

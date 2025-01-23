@@ -2,7 +2,7 @@ import {
     TextField as RATextfield,
     Input as RAInput,
 } from 'react-aria-components';
-import { AriaTextFieldProps as RATextFieldProps } from "@react-types/textfield";
+import { AriaTextFieldProps as RATextFieldProps } from '@react-types/textfield';
 import React from 'react';
 
 export interface TextFieldProps extends RATextFieldProps {

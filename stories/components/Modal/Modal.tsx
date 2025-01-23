@@ -1,10 +1,10 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 import {
     Dialog as RADialog,
     Modal as RAModal,
     ModalOverlay as RAModalOverlay,
-    ModalOverlayProps
-} from "react-aria-components";
+    ModalOverlayProps,
+} from 'react-aria-components';
 
 interface ModalProps extends ModalOverlayProps {
     /**
@@ -25,8 +25,7 @@ interface ModalProps extends ModalOverlayProps {
     size?: 'small' | 'medium' | 'large';
 }
 
-
- export function Modal({ children, size = "small", ...props }: ModalProps) {
+export function Modal({ children, size = 'small', ...props }: ModalProps) {
     const onOpenChange = (nextValue: boolean) => {
         if (props.onChange) props.onChange(nextValue);
     };
@@ -36,8 +35,7 @@ interface ModalProps extends ModalOverlayProps {
             {...props}
             isDismissable
             isOpen={props.isOpen}
-            onOpenChange={onOpenChange}
-        >
+            onOpenChange={onOpenChange}>
             <RAModal className={`modal modal--${size}`}>
                 <RADialog>
                     <div className="dialog-container">{children}</div>
