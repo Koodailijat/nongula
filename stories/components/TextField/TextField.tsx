@@ -18,13 +18,12 @@ export interface TextFieldProps extends RATextFieldProps {
     placeholder?: string;
 }
 
-/** Primary UI component for text */
+/** Primary UI component for text field */
 export const TextField = ({
     children,
-    size = 'medium',
-    mode = 'primary',
     iconSide = 'left',
-    icon = '../../../search_icon_textfield.PNG',
+    icon,
+    size = 'medium',
     ...props
 }: TextFieldProps) => {
     return (
@@ -44,12 +43,7 @@ export const TextField = ({
             <div>
                 <RATextfield
                     id={'textfield-span'}
-                    className={[
-                        'textfield-content',
-                        'text',
-                        `text--${size}`,
-                        `text--${mode}`,
-                    ].join(' ')}
+                    className={['textfield-content', `text--${size}`].join(' ')}
                     placeholder={children}
                     {...props}>
                     <RAInput id={'textfield-RAInput'}></RAInput>
