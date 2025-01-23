@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { TextField } from './TextField.tsx';
+import { SearchIcon, User } from 'lucide-react';
 
 const meta = {
     title: 'TextField',
@@ -21,6 +22,7 @@ export const Medium_and_Right: Story = {
         children: 'Search',
         size: 'medium',
         iconSide: 'right',
+        icon: <SearchIcon />,
     },
 };
 
@@ -35,5 +37,6 @@ export const Large: Story = {
     args: {
         children: 'Search',
         size: 'large',
+        icon: <User />,
     },
 };

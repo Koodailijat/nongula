@@ -3,6 +3,7 @@ import {
     Input as RAInput,
     TextFieldProps as RATextFieldProps,
 } from 'react-aria-components';
+import React from 'react';
 
 export interface TextFieldProps extends RATextFieldProps {
     /** Text to show **/
@@ -14,7 +15,8 @@ export interface TextFieldProps extends RATextFieldProps {
     /** Side of the icon **/
     iconSide?: 'left' | 'right';
     /** URL of the icon image **/
-    icon?: string;
+    icon?: React.ReactNode;
+    /** Placeholder for text **/
     placeholder?: string;
 }
 
@@ -30,14 +32,7 @@ export const TextField = ({
         <div className="textfield-wrapper">
             {iconSide === 'left' && icon && (
                 <div className={'icon-and-text'}>
-                    <div className="textfield-icon">
-                        <img
-                            src={icon}
-                            alt="Icon"
-                            className="textfield-icon"
-                            style={{ width: '20px' }}
-                        />
-                    </div>
+                    <div className="textfield-icon">{icon}</div>
                 </div>
             )}
             <div>
@@ -51,14 +46,7 @@ export const TextField = ({
             </div>
             {iconSide === 'right' && icon && (
                 <div className={'icon-and-text'}>
-                    <div className="textfield-icon">
-                        <img
-                            src={icon}
-                            alt="Icon"
-                            className="textfield-icon"
-                            style={{ width: '20px' }}
-                        />
-                    </div>
+                    <div className="textfield-icon">{icon}</div>
                 </div>
             )}
         </div>
