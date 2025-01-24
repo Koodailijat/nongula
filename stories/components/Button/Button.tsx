@@ -1,38 +1,29 @@
-export interface ButtonProps {
-    /** Is this the principal call to action on the page? */
-    primary?: boolean;
-    /** What background color to use */
-    backgroundColor?: string;
-    /** How large should the button be? */
+import React from 'react';
+import { Button as RAButton } from 'react-aria-components';
+import { AriaButtonProps as RAButtonProps } from '@react-types/button';
+
+export interface ButtonProps extends RAButtonProps {
+    /** Button size */
     size?: 'small' | 'medium' | 'large';
-    /** Button contents */
-    label: string;
-    /** Optional click handler */
-    onClick?: () => void;
+    /** Icon as react component */
+    icon?: React.ReactNode;
 }
 
 /** Primary UI component for user interaction */
 export const Button = ({
-    primary = false,
     size = 'medium',
-    backgroundColor,
-    label,
+    children,
+    icon,
     ...props
 }: ButtonProps) => {
-    const mode = primary
-        ? 'storybook-button--primary'
-        : 'storybook-button--secondary';
     return (
-        <button
-            type="button"
-            className={[
-                'storybook-button',
-                `storybook-button--${size}`,
-                mode,
-            ].join(' ')}
-            style={{ backgroundColor }}
+        <RAButton
+            className={['button', `button--${size}`, 'button--primary'].join(
+                ' '
+            )}
             {...props}>
-            {label}
-        </button>
+            {icon}
+            {children}
+        </RAButton>
     );
 };
