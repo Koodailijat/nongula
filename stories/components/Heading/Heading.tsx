@@ -10,7 +10,7 @@ export const Heading = ({ children, level, ...props }: HeadingProps) => {
     const HeadingElement = `h${level}` as ElementType;
     return (
         <HeadingElement
-            className={['heading', `heading-level--${level}`].join(' ')}
+            className={['heading', `heading--level-${level}`].join(' ')}
             {...props}>
             {children}
         </HeadingElement>
