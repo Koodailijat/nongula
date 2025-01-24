@@ -1,5 +1,3 @@
-import { useProgressBar } from '@react-aria/progress';
-
 interface CircularProgressBarProps {
     /** Value to show **/
     value: number;
@@ -14,14 +12,8 @@ export function CircularProgressBar({
     heading,
     target,
 }: CircularProgressBarProps) {
-    const { progressBarProps } = useProgressBar({ value });
-
     return (
-        <svg
-            width="200"
-            height="200"
-            viewBox="0 0 200 200"
-            {...progressBarProps}>
+        <svg width="200" height="200" viewBox="0 0 200 200">
             <circle
                 r="70"
                 cx="100"
