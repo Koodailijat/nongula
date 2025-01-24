@@ -1,3 +1,3 @@
-export function ModifyCalories() {
+export function ModifyRoute() {
     return <div>Modify calories here!</div>;
 }
