@@ -1,0 +1,29 @@
+.progress-bar {
+    display: grid;
+    grid-template-areas:
+        'label value'
+        'bar bar';
+    grid-template-columns: 1fr auto;
+    gap: 4px;
+    width: 100%;
+    color: $primary-text;
+}
+
+.progress-bar__value {
+    grid-area: value;
+}
+
+.progress-bar__bar {
+    grid-area: bar;
+    box-shadow: inset 0px 0px 0px 1px #212427;
+    forced-color-adjust: none;
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    will-change: transform;
+}
+
+.progress-bar__bar-fill {
+    background: $primary;
+    height: 100%;
+}
