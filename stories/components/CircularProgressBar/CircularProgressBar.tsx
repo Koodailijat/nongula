@@ -1,3 +1,5 @@
+import { useProgressBar } from 'react-aria';
+
 interface CircularProgressBarProps {
     /** Value to show **/
     value: number;
@@ -13,16 +15,18 @@ export function CircularProgressBar({
     target,
 }: CircularProgressBarProps) {
     const targetValue = target ?? 100;
+    const { progressBarProps } = useProgressBar({
+        minValue: 0,
+        maxValue: targetValue,
+        value,
+        label: `Progress bar with target value of ${targetValue} and current value of ${value}`,
+    });
     return (
         <svg
             width="200"
             height="200"
             viewBox="0 0 200 200"
-            role={'progressbar'}
-            aria-valuenow={value}
-            aria-valuemin={0}
-            aria-valuemax={targetValue}
-            aria-label={`Progress bar with target value of ${targetValue} and current value of ${value}`}>
+            {...progressBarProps}>
             <circle
                 r="70"
                 cx="100"
