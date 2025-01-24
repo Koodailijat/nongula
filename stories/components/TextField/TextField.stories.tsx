@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { TextField } from './TextField.tsx';
-import { SearchIcon, User } from 'lucide-react';
+import { SearchIcon } from 'lucide-react';
 
 const meta = {
     title: 'TextField',
@@ -17,26 +17,29 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Medium_and_Right: Story = {
-    args: {
-        placeholder: 'Search',
-        size: 'medium',
-        iconSide: 'right',
-        icon: <SearchIcon />,
-    },
+export const Default: Story = {
+    render: () => (
+        <div style={{ width: '250px' }}>
+            <TextField label="Search" placeholder="Search" />
+        </div>
+    ),
 };
 
-export const Medium_and_Left: Story = {
-    args: {
-        placeholder: 'Search',
-        size: 'medium',
-    },
-};
-
-export const Large: Story = {
-    args: {
-        placeholder: 'Search',
-        size: 'large',
-        icon: <User />,
-    },
+export const Icons: Story = {
+    render: () => (
+        <div style={{ width: '250px' }}>
+            <TextField
+                label="Right"
+                placeholder="Right"
+                iconSide="right"
+                icon={<SearchIcon />}
+            />
+            <TextField
+                label="Left"
+                placeholder="Left"
+                iconSide="left"
+                icon={<SearchIcon />}
+            />
+        </div>
+    ),
 };

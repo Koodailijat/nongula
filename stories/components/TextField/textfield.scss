@@ -1,33 +1,3 @@
-.textfield {
-    display: inline-block;
-    cursor: pointer;
-    border: 0;
-    border-radius: 3em;
-    font-weight: 700;
-    line-height: 1;
-}
-.textfield--primary {
-    background-color: #555ab9;
-    color: white;
-}
-.textfield--secondary {
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
-    background-color: transparent;
-    color: #333;
-}
-.textfield--small {
-    padding: 10px 16px;
-    font-size: 0.75rem;
-}
-.textfield--medium {
-    padding: 11px 20px;
-    font-size: 1rem;
-}
-.storybook-textfield--large {
-    padding: 12px 24px;
-    font-size: 1.25rem;
-}
-
 .textfield-icon {
     width: 20px;
     height: 20px;
@@ -35,68 +5,51 @@
     align-items: center;
 }
 
-.textfield-content {
+.textfield {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: flex-end;
     width: 100%;
-
-    flex: 1;
-    overflow-x: auto;
-    white-space: nowrap;
-    padding: 0 5px;
 }
 
-#textfield-RAInput {
-    border: none;
-}
-
-input[data-hovered],
-input[data-focused],
-input[data-focus-visible] {
-    border: none;
-    outline: none;
-}
-
-.icon-and-text {
+.input-container {
     display: flex;
-    gap: 5px;
-}
-
-#textfield-span {
-    display: inline-block;
-}
-
-.textfield-wrapper {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    outline: 1px solid black;
-    border-radius: 15px;
-    padding: 10px;
-    width: 100%;
+    justify-content: center;
     align-items: center;
-    overflow: hidden;
-}
-
-.textfield-wrapper {
     position: relative;
 }
 
-.textfield-content {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.1);
+.input {
+    cursor: pointer;
+    display: flex;
+    border: 2px solid black;
+    border-radius: 16px;
+    padding: 10px;
+    width: 100%;
+
+    &.icon-left {
+        padding-left: 3rem;
+    }
+
+    &.icon-right {
+        padding-right: 3rem;
+    }
+
+    &:focus-visible {
+        outline-color: dodgerblue;
+    }
 }
 
-.textfield-content::-webkit-scrollbar {
-    height: 6px;
-}
+.textfield-icon {
+    position: absolute;
+    display: flex;
+    gap: 5px;
 
-.textfield-content::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-}
+    &--right {
+        right: 1rem;
+    }
 
-.textfield-content::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.1);
+    &--left {
+        left: 1rem;
+    }
 }
