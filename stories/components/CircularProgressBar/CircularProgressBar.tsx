@@ -12,8 +12,17 @@ export function CircularProgressBar({
     heading,
     target,
 }: CircularProgressBarProps) {
+    const targetValue = target ?? 100;
     return (
-        <svg width="200" height="200" viewBox="0 0 200 200">
+        <svg
+            width="200"
+            height="200"
+            viewBox="0 0 200 200"
+            role={'progressbar'}
+            aria-valuenow={value}
+            aria-valuemin={0}
+            aria-valuemax={targetValue}
+            aria-label={`Progress bar with target value of ${targetValue} and current value of ${value}`}>
             <circle
                 r="70"
                 cx="100"
@@ -30,7 +39,7 @@ export function CircularProgressBar({
                 stroke="#519A58"
                 pathLength="100"
                 strokeWidth="1.25rem"
-                strokeDasharray={`${(value / (target ?? 100)) * 100} ${100 - (value / (target ?? 100)) * 100}`}
+                strokeDasharray={`${(value / targetValue) * 100} ${100 - (value / targetValue) * 100}`}
                 strokeDashoffset={75}
                 strokeLinecap="round"
                 className="circular-progress-bar__progress"
