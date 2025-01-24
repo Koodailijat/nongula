@@ -10,7 +10,7 @@ const meta = {
     },
     tags: ['autodocs'],
     argTypes: {
-        children: { control: 'text' },
+        placeholder: { control: 'text' },
     },
 } satisfies Meta<typeof TextField>;
 
@@ -19,7 +19,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Medium_and_Right: Story = {
     args: {
-        children: 'Search',
+        placeholder: 'Search',
         size: 'medium',
         iconSide: 'right',
         icon: <SearchIcon />,
@@ -28,14 +28,14 @@ export const Medium_and_Right: Story = {
 
 export const Medium_and_Left: Story = {
     args: {
-        children: 'Search',
+        placeholder: 'Search',
         size: 'medium',
     },
 };
 
 export const Large: Story = {
     args: {
-        children: 'Search',
+        placeholder: 'Search',
         size: 'large',
         icon: <User />,
     },
