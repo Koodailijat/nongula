@@ -16,17 +16,17 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const Default: Story = {
+    args: {
+        children: 'Lorem ipsum dolor sit amet, consetetur',
+        size: 'medium',
+    },
+};
+
 export const Small: Story = {
     args: {
         children: 'Lorem ipsum dolor sit amet, consetetur',
         size: 'small',
-    },
-};
-
-export const Medium: Story = {
-    args: {
-        children: 'Lorem ipsum dolor sit amet, consetetur',
-        size: 'medium',
     },
 };
 

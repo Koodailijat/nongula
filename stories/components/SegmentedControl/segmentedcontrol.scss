@@ -1,0 +1,26 @@
+.segmented-control {
+    display: flex;
+    padding: 0.1rem;
+    height: auto;
+    border-radius: 10px;
+    background: #efefef;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+}
+
+.segmented-control__segment {
+    padding: 0.4rem 1.2rem;
+    border: none;
+    outline: inherit;
+    color: white;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.segmented-control__divider {
+    border-left: 1px solid lightgray;
+    height: 100%;
+}
