@@ -1,12 +1,13 @@
 .badge-wrapper {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 5px;
-    padding: 5px 10px 5px 10px;
+    padding: 5px 10px;
     border: none;
     border-radius: 1rem;
     background-color: #519a58;
-
+    width: fit-content;
+    height: fit-content;
     color: white;
 }

@@ -1,0 +1,15 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &:focus-visible {
+        outline-color: dodgerblue;
+    }
+}
+
+.list-item {
+    border: 2px solid #519a58;
+    border-radius: 4px;
+    padding: 8px;
+}
