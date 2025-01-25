@@ -56,9 +56,10 @@ export function CustomCaloriesModal({
                         </>
                     )}
                 </div>
-
                 <div className="custom-modal__actions">
-                    <Button icon={<PlusIcon color="white" />}>Add</Button>
+                    <Button icon={<PlusIcon color="white" size="16" />}>
+                        Add
+                    </Button>
                     <Button variant="danger" onPress={() => setOpen(false)}>
                         Cancel
                     </Button>
