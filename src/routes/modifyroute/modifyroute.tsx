@@ -1,7 +1,8 @@
 import { Heading } from '../../../stories/components/Heading/Heading.tsx';
 import { ProgressBar } from '../../../stories/components/ProgressBar/ProgressBar.tsx';
 import { Button } from '../../../stories/components/Button/Button.tsx';
-import { CirclePlus } from 'lucide-react';
+import { CirclePlus, SearchIcon } from 'lucide-react';
+import { TextField } from '../../../stories/components/TextField/TextField.tsx';
 
 export function ModifyRoute() {
     return (
@@ -14,7 +15,13 @@ export function ModifyRoute() {
                     value={30}
                     valueText={'2000 kcal'}
                 />
+                <TextField
+                    iconSide={'left'}
+                    icon={<SearchIcon />}
+                    placeholder={'Search'}
+                />
                 <Button
+                    style={{ width: '100%' }}
                     icon={<CirclePlus color="white" />}
                     children={'Custom calories'}
                 />
