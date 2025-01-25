@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Button } from '../../../../stories/components/Button/Button.tsx';
-import { CustomCaloriesModal } from '../customcaloriesmodal/customcaloriesmodal.tsx';
+import { Button } from '../../../stories/components/Button/Button.tsx';
+import { CustomCaloriesModal } from './components/customcaloriesmodal.tsx';
 import { PlusIcon } from 'lucide-react';
 import './modifyroute.scss';
 
