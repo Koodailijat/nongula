@@ -32,9 +32,7 @@ export function ModifyRoute() {
         <div className="modify-route">
             <Heading level={4}>Tuesday 21st</Heading>
             <div className="modify-route__content">
-                <div
-                    className="modify-route__progress-bar"
-                    style={{ width: '100%' }}>
+                <div className="modify-route__progress-bar">
                     <ProgressBar
                         label={"Today's calories"}
                         value={30}
