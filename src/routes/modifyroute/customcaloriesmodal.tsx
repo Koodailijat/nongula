@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { CirclePlus } from 'lucide-react';
 import { Button } from '../../../stories/components/Button/Button.tsx';
 import { Modal } from '../../../stories/components/Modal/Modal.tsx';
+import { Heading } from '../../../stories/components/Heading/Heading.tsx';
 
 interface CustomCaloriesModalProps {
     isOpen: boolean;
@@ -24,6 +25,7 @@ export function CustomCaloriesModal({
     return (
         <Modal isOpen={isOpen} onChange={onChange}>
             <div className={'custom-modal-wrapper'}>
+                <Heading level={3}>Custom calories</Heading>
                 <TextField
                     label={'*Food name'}
                     placeholder={'Food name'}
@@ -50,7 +52,11 @@ export function CustomCaloriesModal({
                     children={'Add calories'}
                     icon={<CirclePlus color="white" />}
                 />
-                <Button onPress={() => setOpen(false)}>Cancel</Button>
+                <Button
+                    style={{ width: 'inherit' }}
+                    onPress={() => setOpen(false)}>
+                    Cancel
+                </Button>
             </div>
         </Modal>
     );
