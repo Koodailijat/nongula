@@ -1,0 +1,14 @@
+.modify-route {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 95vh;
+
+    .modify-route__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+    }
+}
