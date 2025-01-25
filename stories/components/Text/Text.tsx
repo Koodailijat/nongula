@@ -16,7 +16,7 @@ export const Text = ({
 }: TextProps) => {
     return (
         <span
-            className={[`text--${size}`, `text--${mode}`, 'text'].join(' ')}
+            className={[`text--${size}`, `text--${mode}`].join(' ')}
             {...props}>
             {children}
         </span>
