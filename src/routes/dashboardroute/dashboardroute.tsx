@@ -6,21 +6,20 @@ import { CircularProgressBar } from '../../../stories/components/CircularProgres
 import { Calendar } from '../../../stories/components/Calendar/Calendar.tsx';
 import { Button } from '../../../stories/components/Button/Button.tsx';
 import { PlusIcon } from 'lucide-react';
-import { months } from '../../utils/months.ts';
 import { useNavigate } from 'react-router';
-import { formatISO } from 'date-fns';
+import { format, formatISO } from 'date-fns';
+import { useNutritionLocalStorage } from '../../hooks/usenutritionlocalstorage.tsx';
 
 export function DashboardRoute() {
     const datetime = new Date();
     const dateString = formatISO(datetime, { representation: 'date' });
     const navigate = useNavigate();
+    const [value] = useNutritionLocalStorage();
 
     return (
         <div className="dashboard">
             <div className="dashboard__header">
-                <Heading level={1}>
-                    {months[datetime.getMonth()]} {datetime.getDate()}
-                </Heading>
+                <Heading level={1}>{format(datetime, 'LLLL do')}</Heading>
                 <Badge>
                     <Text mode="secondary" size="large">
                         4 🔥
@@ -33,24 +32,7 @@ export function DashboardRoute() {
                     heading="Calories"
                     target={2100}
                 />
-                <Calendar
-                    data={{
-                        2025: {
-                            1: {
-                                1: { calories: 150 },
-                                2: { calories: 260 },
-                                3: { calories: 340 },
-                                4: { calories: 450 },
-                                5: { calories: 560 },
-                                6: { calories: 1999 },
-                                7: { calories: 1583 },
-                                8: { calories: 1800 },
-                                9: { calories: 2100 },
-                            },
-                        },
-                    }}
-                    target_calories={2100}
-                />
+                <Calendar data={value} target_calories={2100} />
                 <Button
                     size="large"
                     onPress={() => navigate(`/modify/${dateString}`)}
