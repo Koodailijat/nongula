@@ -52,7 +52,13 @@ function getStyle(
 
     if (data?.[isoDate]?.length) {
         return {
-            background: getColor(data[isoDate].reduce((previousValue, currentValue) => previousValue + currentValue.calories, 0) / target_calories),
+            background: getColor(
+                data[isoDate].reduce(
+                    (previousValue, currentValue) =>
+                        previousValue + currentValue.calories,
+                    0
+                ) / target_calories
+            ),
         };
     }
     return {};
