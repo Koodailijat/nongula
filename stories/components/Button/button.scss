@@ -9,6 +9,10 @@
     border: 0;
     font-weight: 700;
     line-height: 1;
+
+    &:focus-visible {
+        outline-color: dodgerblue;
+    }
 }
 
 .button--primary {
