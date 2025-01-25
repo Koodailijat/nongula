@@ -12,6 +12,7 @@ import { CSSProperties } from 'react';
 
 interface Nutrition {
     calories: number;
+    name: string;
 }
 
 export interface Calories {
