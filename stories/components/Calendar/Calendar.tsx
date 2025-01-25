@@ -50,9 +50,15 @@ function getStyle(
 ): CSSProperties {
     const isoDate = `${date.year}-${date.month.toString().padStart(2, '0')}-${date.day.toString().padStart(2, '0')}`;
 
-    if (data?.[isoDate]?.calories) {
+    if (data?.[isoDate]?.length) {
         return {
-            background: getColor(data[isoDate].calories / target_calories),
+            background: getColor(
+                data[isoDate].reduce(
+                    (previousValue, currentValue) =>
+                        previousValue + currentValue.calories,
+                    0
+                ) / target_calories
+            ),
         };
     }
     return {};
