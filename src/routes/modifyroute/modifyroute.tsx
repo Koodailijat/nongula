@@ -3,8 +3,12 @@ import { ProgressBar } from '../../../stories/components/ProgressBar/ProgressBar
 import { Button } from '../../../stories/components/Button/Button.tsx';
 import { CirclePlus, SearchIcon } from 'lucide-react';
 import { TextField } from '../../../stories/components/TextField/TextField.tsx';
+import { CustomCaloriesModal } from './customcaloriesmodal.tsx';
+import { useState } from 'react';
 
 export function ModifyRoute() {
+    const [isOpen, setOpen] = useState(false);
+
     return (
         <div className={'modify'}>
             <div className={'modify-wrapper'}>
@@ -23,8 +27,10 @@ export function ModifyRoute() {
                 <Button
                     style={{ width: '100%' }}
                     icon={<CirclePlus color="white" />}
+                    onPress={() => setOpen(true)}>
                     children={'Custom calories'}
-                />
+                </Button>
+                <CustomCaloriesModal isOpen={isOpen} setOpen={setOpen} />
             </div>
         </div>
     );
