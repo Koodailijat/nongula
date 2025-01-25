@@ -53,7 +53,7 @@ export function DashboardRoute() {
                 <Button
                     size="large"
                     onPress={() => navigate('/modify')}
-                    icon={<PlusIcon />}>
+                    icon={<PlusIcon size="16" />}>
                     Add calories
                 </Button>
             </div>

@@ -13,7 +13,7 @@ export function ModifyRoute() {
                 <Button
                     onPress={() => setOpen(true)}
                     size="large"
-                    icon={<PlusIcon />}>
+                    icon={<PlusIcon size="16" />}>
                     Add custom calories
                 </Button>
                 <CustomCaloriesModal isOpen={isOpen} setOpen={setOpen} />
