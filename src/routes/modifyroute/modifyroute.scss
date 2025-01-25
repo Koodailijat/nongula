@@ -17,6 +17,10 @@
     }
 
     .modify-route__list {
+        width: 100%;
+    }
+
+    .modify-route__list-item {
         display: flex;
         flex-direction: row;
         justify-content: space-between;

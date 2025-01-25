@@ -44,10 +44,10 @@ export function ModifyRoute() {
                     icon={<SearchIcon />}
                     placeholder={'Search'}
                 />
-                <List style={{ width: '100%' }} items={list.items}>
+                <List className="modify-route__list" items={list.items}>
                     {({ id, text }) => (
                         <ListItem
-                            className="modify-route__list"
+                            className="modify-route__list-item"
                             key={id}
                             id={id}>
                             <Text>{text}</Text>
