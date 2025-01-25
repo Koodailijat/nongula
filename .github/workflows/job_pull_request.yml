@@ -23,3 +23,11 @@ jobs:
               run: npm ci
             - name: Prettier
               run: npm run prettier
+    ts-check:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+        - name: Install Dependencies
+          run: npm ci
+        - name: TypeScript check
+          run: npm run ts-check

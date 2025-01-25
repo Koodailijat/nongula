@@ -30,7 +30,6 @@ export function CustomCaloriesModal({
                     isRequired={true}
                     label={'*Food name'}
                     placeholder={'Food name'}
-                    children={'Search'}
                 />
                 <SegmentedControl
                     selected={selected}
