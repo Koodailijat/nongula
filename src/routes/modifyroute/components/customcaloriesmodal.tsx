@@ -57,6 +57,7 @@ export function CustomCaloriesModal({
                     { calories: totalCalories, name: foodName },
                 ];
             }
+            setTotalCalories(0);
         }
 
         setCalories(newCalories);
