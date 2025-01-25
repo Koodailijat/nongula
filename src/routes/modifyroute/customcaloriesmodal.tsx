@@ -50,16 +50,10 @@ export function CustomCaloriesModal({
                         <TextField label={'Weight'} placeholder={'Weight'} />
                     </>
                 )}
-                <Button
-                    style={{ width: 'inherit' }}
-                    children={'Add calories'}
-                    icon={<CirclePlus color="white" />}
-                />
-                <Button
-                    style={{ width: 'inherit' }}
-                    onPress={() => setOpen(false)}>
-                    Cancel
+                <Button icon={<CirclePlus color="white" />}>
+                    Add calories
                 </Button>
+                <Button onPress={() => setOpen(false)}>Cancel</Button>
             </div>
         </Modal>
     );
