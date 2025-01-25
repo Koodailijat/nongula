@@ -7,12 +7,12 @@ import { AriaTextFieldProps as RATextFieldProps } from '@react-types/textfield';
 import { ReactNode } from 'react';
 
 export interface TextFieldProps extends RATextFieldProps {
-    /** Text color, defaults to primary **/
-    mode?: 'primary' | 'secondary';
     /** Side of the icon **/
     iconSide?: 'left' | 'right';
     /** Icon component **/
     icon?: ReactNode;
+    /** Label **/
+    label?: string;
 }
 
 function getIconInputStyle(icon: ReactNode, iconSide: 'left' | 'right') {
@@ -35,7 +35,7 @@ export const TextField = ({
 }: TextFieldProps) => {
     return (
         <RATextfield className="textfield" {...props}>
-            {label && <RALabel className={'RALabel'}>{label}</RALabel>}
+            <RALabel className={'RALabel'}>{label}</RALabel>
             <div className="input-container">
                 {iconSide === 'left' && icon && (
                     <div className="textfield-icon textfield-icon--left">

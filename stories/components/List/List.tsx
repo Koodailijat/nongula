@@ -6,7 +6,11 @@ export function List<T extends object>({
     ...props
 }: ListBoxProps<T>) {
     return (
-        <ListBox {...props} className={`list ${className}`} autoFocus={false}>
+        <ListBox
+            aria-label="List"
+            {...props}
+            className={`list ${className}`}
+            autoFocus={false}>
             {children}
         </ListBox>
     );
