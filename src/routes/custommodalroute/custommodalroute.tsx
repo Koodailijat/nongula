@@ -7,6 +7,7 @@ import { Button } from '../../../stories/components/Button/Button.tsx';
 export function CustomModalRoute() {
     const [selected, setSelected] = useState(0);
     const segments = ['Total', 'Kcal/g'];
+
     return (
         <div className="custom-modal">
             <div className={'custom-modal-wrapper'}>
@@ -20,7 +21,17 @@ export function CustomModalRoute() {
                     setSelected={setSelected}
                     segments={segments}
                 />
-                <TextField label={'Total calories'} placeholder={'Search'} />
+                {selected === 0 ? (
+                    <TextField
+                        label={'Total calories'}
+                        placeholder={'Search'}
+                    />
+                ) : (
+                    <>
+                        <TextField label={'Kcal/100g'} placeholder={'Search'} />
+                        <TextField label={'Weight'} placeholder={'Search'} />
+                    </>
+                )}
                 <Button
                     style={{ width: 'inherit' }}
                     children={'Add calories'}
