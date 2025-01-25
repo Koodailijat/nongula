@@ -24,9 +24,9 @@ export function CustomCaloriesModal({
     const [kcal, setKcal] = useState(0);
     const [weight, setWeight] = useState(0);
     const [foodName, setFoodName] = useState('');
+    const [calories, setCalories] = useNutritionLocalStorage();
     const segments = ['Total', 'Kcal / g'];
     const datetime = useParams().date!;
-    const [calories, setCalories] = useNutritionLocalStorage();
 
     const onChange = (nextValue: boolean) => {
         setOpen(nextValue);
