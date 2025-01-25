@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from 'react-router';
 import { ErrorRoute } from './routes/errorroute/errorroute.tsx';
 import { ModifyRoute } from './routes/modifyroute/modifyroute.tsx';
 import { DashboardRoute } from './routes/dashboardroute/dashboardroute.tsx';
-import { CustomModalRoute } from './routes/custommodalroute/custommodalroute.tsx';
 import '../stories/_nongula.scss';
 
 const root = document.getElementById('root')!;
@@ -14,7 +13,6 @@ ReactDOM.createRoot(root).render(
             <Route path={'*'} element={<ErrorRoute />} />
             <Route path={'/'} element={<DashboardRoute />} />
             <Route path={'/modify'} element={<ModifyRoute />} />
-            <Route path={'/modal'} element={<CustomModalRoute />} />
         </Routes>
     </BrowserRouter>
 );

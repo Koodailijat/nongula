@@ -1,15 +1,28 @@
 import { TextField } from '../../../stories/components/TextField/TextField.tsx';
 import { SegmentedControl } from '../../../stories/components/SegmentedControl/SegmentedControl.tsx';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { CirclePlus } from 'lucide-react';
 import { Button } from '../../../stories/components/Button/Button.tsx';
+import { Modal } from '../../../stories/components/Modal/Modal.tsx';
 
-export function CustomModalRoute() {
+interface CustomCaloriesModalProps {
+    isOpen: boolean;
+    setOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+export function CustomCaloriesModal({
+    isOpen,
+    setOpen,
+}: CustomCaloriesModalProps) {
     const [selected, setSelected] = useState(0);
     const segments = ['Total', 'Kcal/g'];
 
+    const onChange = (nextValue: boolean) => {
+        setOpen(nextValue);
+    };
+
     return (
-        <div className="custom-modal">
+        <Modal isOpen={isOpen} onChange={onChange}>
             <div className={'custom-modal-wrapper'}>
                 <TextField
                     label={'*Food name'}
@@ -37,7 +50,8 @@ export function CustomModalRoute() {
                     children={'Add calories'}
                     icon={<CirclePlus color="white" />}
                 />
+                <Button onPress={() => setOpen(false)}>Cancel</Button>
             </div>
-        </div>
+        </Modal>
     );
 }
