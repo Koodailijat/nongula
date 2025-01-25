@@ -2,6 +2,7 @@ import { Heading } from '../../../stories/components/Heading/Heading.tsx';
 import { ProgressBar } from '../../../stories/components/ProgressBar/ProgressBar.tsx';
 import { Button } from '../../../stories/components/Button/Button.tsx';
 import { CustomCaloriesModal } from './components/customcaloriesmodal.tsx';
+import { AddNewFoodModal } from './components/addnewfoodmodal.tsx';
 import { Pen, PlusIcon, SearchIcon, Trash } from 'lucide-react';
 import './modifyroute.scss';
 import { useEffect, useMemo, useState } from 'react';
@@ -21,16 +22,19 @@ interface FoodItem {
         fi: string;
         en: string;
     };
+    energyKcal: number;
 }
 
 export function ModifyRoute() {
     const [isOpen, setOpen] = useState(false);
+    const [isCustomCaloriesOpen, setCustomCaloriesOpen] = useState(false);
     const isoDateString = useParams().date;
     const datetime = useDateParamToDate();
     const navigate = useNavigate();
     const [query, setQuery] = useState('');
     const [debouncedQuery, setDebouncedQuery] = useState('');
     const [items, setItems] = useState<FoodItem[]>([]); // State to store the first 5 results
+    const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
 
     useEffect(() => {
         if (!isValid(datetime)) {
@@ -64,8 +68,8 @@ export function ModifyRoute() {
                 }
                 const data: FoodItem[] = await response.json();
                 const firstFive = data.slice(0, 5); // Get the first 5 results
-                console.log(firstFive);
                 setItems(firstFive); // Save the first 5 results in state
+                console.log(firstFive);
                 console.log(items.length);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -74,6 +78,11 @@ export function ModifyRoute() {
 
         fetchData();
     }, [debouncedQuery]);
+
+    const handleIconClick = (energyKcal: number) => {
+        setSelectedItemId(energyKcal); // Set the selected item's id
+        setOpen(true); // Open the modal
+    };
 
     // Mock data
     const initialItems = [
@@ -110,7 +119,7 @@ export function ModifyRoute() {
                 {items.length > 0 && (
                     <div className={'search-results'}>
                         <List className="food-list" items={items}>
-                            {({ id, name }) => (
+                            {({ id, name, energyKcal }) => (
                                 <ListItem
                                     className="modify-route__list-item"
                                     key={id}
@@ -125,7 +134,7 @@ export function ModifyRoute() {
                                                 />
                                             }
                                             onPress={() => {
-                                                list.remove(id);
+                                                handleIconClick(energyKcal);
                                             }}
                                         />
                                     </div>
@@ -154,12 +163,20 @@ export function ModifyRoute() {
                     )}
                 </List>
                 <Button
-                    onPress={() => setOpen(true)}
+                    onPress={() => setCustomCaloriesOpen(true)}
                     size="large"
                     icon={<PlusIcon size="16" />}>
                     Add custom calories
                 </Button>
-                <CustomCaloriesModal isOpen={isOpen} setOpen={setOpen} />
+                <AddNewFoodModal
+                    isOpen={isOpen}
+                    setOpen={setOpen}
+                    itemId={selectedItemId}
+                />
+                <CustomCaloriesModal
+                    isOpen={isCustomCaloriesOpen}
+                    setOpen={setCustomCaloriesOpen}
+                />
             </div>
         </div>
     );
