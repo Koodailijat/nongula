@@ -4,28 +4,19 @@ import { Button } from '../../../stories/components/Button/Button.tsx';
 import { CustomCaloriesModal } from './components/customcaloriesmodal.tsx';
 import { Pen, PlusIcon, SearchIcon, Trash } from 'lucide-react';
 import './modifyroute.scss';
-import { useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useListData } from 'react-stately';
 import { TextField } from '../../../stories/components/TextField/TextField.tsx';
 import { List } from '../../../stories/components/List/List.tsx';
 import { ListItem } from '../../../stories/components/List/ListItem.tsx';
 import { IconButton } from '../../../stories/components/IconButton/IconButton.tsx';
 import { Text } from '../../../stories/components/Text/Text.tsx';
-import { useNavigate, useParams } from 'react-router';
-import { format, isValid, parseISO } from 'date-fns';
+import { format } from 'date-fns';
+import { useDateParamToDate } from '../../hooks/usedateparamtodate.tsx';
 
 export function ModifyRoute() {
     const [isOpen, setOpen] = useState(false);
-    const isoDateString = useParams().date;
-    const datetime = useMemo(() => parseISO(isoDateString!), [isoDateString]);
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (!isValid(datetime)) {
-            navigate('/');
-            return;
-        }
-    }, [datetime, isoDateString, navigate]);
+    const datetime = useDateParamToDate();
 
     // Mock data
     const initialItems = [

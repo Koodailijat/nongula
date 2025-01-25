@@ -6,6 +6,9 @@ import { Button } from '../../../../stories/components/Button/Button.tsx';
 import { Modal } from '../../../../stories/components/Modal/Modal.tsx';
 import { Heading } from '../../../../stories/components/Heading/Heading.tsx';
 import './customcaloriesmodal.scss';
+import { useNutritionLocalStorage } from '../../../hooks/usenutritionlocalstorage.tsx';
+import { useParams } from 'react-router';
+import { deepClone } from '../../../utils/deepclone.ts';
 
 interface CustomCaloriesModalProps {
     isOpen: boolean;
@@ -17,10 +20,48 @@ export function CustomCaloriesModal({
     setOpen,
 }: CustomCaloriesModalProps) {
     const [selected, setSelected] = useState(0);
-    const segments = ['Total', 'Kcal/g'];
+    const [totalCalories, setTotalCalories] = useState(0);
+    const [kcal, setKcal] = useState(0);
+    const [weight, setWeight] = useState(0);
+    const [foodName, setFoodName] = useState('');
+    const [calories, setCalories] = useNutritionLocalStorage();
+    const segments = ['Total', 'Kcal / g'];
+    const datetime = useParams().date!;
 
     const onChange = (nextValue: boolean) => {
         setOpen(nextValue);
+    };
+
+    const onAdd = () => {
+        const newCalories = deepClone(calories);
+
+        if (totalCalories === 0) {
+            if (newCalories[datetime]) {
+                newCalories[datetime].push({
+                    calories: kcal * (weight / 100),
+                    name: foodName,
+                });
+            } else {
+                newCalories[datetime] = [
+                    { calories: kcal * (weight / 100), name: foodName },
+                ];
+            }
+        } else {
+            if (newCalories[datetime]) {
+                newCalories[datetime].push({
+                    calories: totalCalories,
+                    name: foodName,
+                });
+            } else {
+                newCalories[datetime] = [
+                    { calories: totalCalories, name: foodName },
+                ];
+            }
+            setTotalCalories(0);
+        }
+
+        setCalories(newCalories);
+        setOpen(false);
     };
 
     return (
@@ -32,6 +73,7 @@ export function CustomCaloriesModal({
                         isRequired={true}
                         label="Food name"
                         placeholder="Search"
+                        onChange={setFoodName}
                     />
                     <SegmentedControl
                         selected={selected}
@@ -42,22 +84,29 @@ export function CustomCaloriesModal({
                         <TextField
                             label={'Total calories'}
                             placeholder={'Input calories'}
+                            onChange={(value) =>
+                                setTotalCalories(Number(value))
+                            }
                         />
                     ) : (
                         <>
                             <TextField
-                                label={'Kcal/100g'}
-                                placeholder={'Kcal/100g'}
+                                label="Calories (Kcal / 100g)"
+                                placeholder="Calories (Kcal / 100g)"
+                                onChange={(value) => setKcal(Number(value))}
                             />
                             <TextField
-                                label={'Weight'}
-                                placeholder={'Weight'}
+                                label="Weight (g)"
+                                placeholder="Weight (g)"
+                                onChange={(value) => setWeight(Number(value))}
                             />
                         </>
                     )}
                 </div>
                 <div className="custom-modal__actions">
-                    <Button icon={<PlusIcon color="white" size="16" />}>
+                    <Button
+                        onPress={onAdd}
+                        icon={<PlusIcon color="white" size="16" />}>
                         Add
                     </Button>
                     <Button variant="danger" onPress={() => setOpen(false)}>
