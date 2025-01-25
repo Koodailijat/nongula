@@ -10,9 +10,11 @@
         "prettier": "prettier . --check",
         "preview": "vite preview",
         "storybook": "storybook dev -p 6006",
-        "build-storybook": "storybook build"
+        "build-storybook": "storybook build",
+        "ts-check": "tsc -b"
     },
     "dependencies": {
+        "eslint-plugin-react": "7.37.4",
         "lucide-react": "^0.474.0",
         "react": "^19.0.0",
         "react-aria-components": "^1.6.0",
