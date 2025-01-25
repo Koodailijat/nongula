@@ -14,11 +14,22 @@ import { Text } from '../../../stories/components/Text/Text.tsx';
 import { useNavigate, useParams } from 'react-router';
 import { format, isValid, parseISO } from 'date-fns';
 
+interface FoodItem {
+    id: number;
+    name: {
+        fi: string;
+        en: string;
+    };
+}
+
 export function ModifyRoute() {
     const [isOpen, setOpen] = useState(false);
     const isoDateString = useParams().date;
     const datetime = useMemo(() => parseISO(isoDateString!), [isoDateString]);
     const navigate = useNavigate();
+    const [query, setQuery] = useState('');
+    const [debouncedQuery, setDebouncedQuery] = useState('');
+    const [items, setItems] = useState<FoodItem[]>([]); // State to store the first 5 results
 
     useEffect(() => {
         if (!isValid(datetime)) {
@@ -26,6 +37,42 @@ export function ModifyRoute() {
             return;
         }
     }, [datetime, isoDateString, navigate]);
+
+    // Debounce logic to reduce API calls
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedQuery(query);
+        }, 500); // Wait for 500ms before updating debouncedQuery
+        return () => clearTimeout(handler); // Clear timeout on cleanup
+    }, [query]);
+
+    // Fetch data when debouncedQuery changes
+    useEffect(() => {
+        if (debouncedQuery.trim() === '') return;
+
+        const fetchData = async () => {
+            console.log(
+                `https://fineli.fi/fineli/api/v1/foods?q=${debouncedQuery}`
+            );
+            try {
+                const response = await fetch(
+                    `https://fineli.fi/fineli/api/v1/foods?q=${debouncedQuery}`
+                );
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+                const data: FoodItem[] = await response.json();
+                const firstFive = data.slice(0, 5); // Get the first 5 results
+                console.log(firstFive);
+                setItems(firstFive); // Save the first 5 results in state
+                console.log(items.length);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, [debouncedQuery]);
 
     // Mock data
     const initialItems = [
@@ -55,7 +102,35 @@ export function ModifyRoute() {
                     iconSide={'left'}
                     icon={<SearchIcon />}
                     placeholder={'Search'}
+                    value={query}
+                    onChange={(value) => setQuery(value)}
                 />
+                {/* List component to display results */}
+                {items.length > 0 && (
+                    <List className="food-list" items={items}>
+                        {({ id, name }) => (
+                            <ListItem
+                                className="modify-route__list-item"
+                                key={id}
+                                id={id}>
+                                <Text>{name.fi}</Text>
+                                <div className="modify-route__list-actions">
+                                    <IconButton
+                                        icon={
+                                            <Trash
+                                                strokeWidth={2}
+                                                color="red"
+                                            />
+                                        }
+                                        onPress={() => {
+                                            list.remove(id);
+                                        }}
+                                    />
+                                </div>
+                            </ListItem>
+                        )}
+                    </List>
+                )}
                 <List className="modify-route__list" items={list.items}>
                     {({ id, text }) => (
                         <ListItem
