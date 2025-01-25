@@ -23,22 +23,22 @@ export function CircularProgressBar({
     });
     return (
         <svg
-            width="200"
-            height="200"
-            viewBox="0 0 200 200"
+            width="300"
+            height="300"
+            viewBox="0 0 300 300"
             {...progressBarProps}>
             <circle
-                r="70"
-                cx="100"
-                cy="100"
+                r="105"
+                cx="150"
+                cy="150"
                 fill="transparent"
-                strokeWidth="1.25rem"
+                strokeWidth="2rem"
                 stroke="#E1E1E1"
             />
             <circle
-                r="70"
-                cx="100"
-                cy="100"
+                r="105"
+                cx="150"
+                cy="150"
                 fill="transparent"
                 stroke="#519A58"
                 pathLength="100"
