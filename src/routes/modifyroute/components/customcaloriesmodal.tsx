@@ -65,9 +65,15 @@ export function CustomCaloriesModal({
     };
 
     return (
-        <Modal isOpen={isOpen} onChange={onChange}>
-            <div className={'custom-modal'}>
-                <Heading level={2}>Custom calories</Heading>
+        <Modal
+            ariaLabel={'Custom calories modal'}
+            isOpen={isOpen}
+            onChange={onChange}
+            aria-label="Custom calories modal">
+            <div className={'custom-modal'} aria-label="Custom calories modal">
+                <Heading level={2} slot="title">
+                    Custom calories
+                </Heading>
                 <div className="custom-modal__content">
                     <TextField
                         isRequired={true}
