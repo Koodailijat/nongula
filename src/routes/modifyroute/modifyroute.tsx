@@ -12,8 +12,7 @@ import { ListItem } from '../../../stories/components/List/ListItem.tsx';
 import { IconButton } from '../../../stories/components/IconButton/IconButton.tsx';
 import { Text } from '../../../stories/components/Text/Text.tsx';
 import { useNavigate, useParams } from 'react-router';
-import { isValid, parseISO } from 'date-fns';
-import { months } from '../../utils/months.ts';
+import { format, isValid, parseISO } from 'date-fns';
 
 export function ModifyRoute() {
     const [isOpen, setOpen] = useState(false);
@@ -43,9 +42,7 @@ export function ModifyRoute() {
 
     return (
         <div className="modify-route">
-            <Heading level={1}>
-                {months[datetime.getMonth()]} {datetime.getDate()}
-            </Heading>
+            <Heading level={1}>{format(datetime, 'LLLL do')}</Heading>
             <div className="modify-route__content">
                 <div className="modify-route__progress-bar">
                     <ProgressBar

@@ -14,12 +14,8 @@ interface Nutrition {
     calories: number;
 }
 
-interface Calories {
-    [key: number]: {
-        [key: number]: {
-            [key: number]: Nutrition;
-        };
-    };
+export interface Calories {
+    [key: string]: Nutrition;
 }
 
 interface CalendarProps {
@@ -51,11 +47,11 @@ function getStyle(
     data: Calories,
     target_calories: number
 ): CSSProperties {
-    if (data?.[date.year]?.[date.month]?.[date.day]?.calories) {
+    const isoDate = `${date.year}-${date.month.toString().padStart(2, '0')}-${date.day.toString().padStart(2, '0')}`;
+
+    if (data?.[isoDate]?.calories) {
         return {
-            background: getColor(
-                data[date.year][date.month][date.day].calories / target_calories
-            ),
+            background: getColor(data[isoDate].calories / target_calories),
         };
     }
     return {};
