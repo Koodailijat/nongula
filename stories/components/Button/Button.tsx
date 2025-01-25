@@ -7,6 +7,8 @@ export interface ButtonProps extends RAButtonProps {
     size?: 'small' | 'medium' | 'large';
     /** Icon as react component */
     icon?: React.ReactNode;
+    /** Button variant */
+    variant?: 'primary' | 'danger';
 }
 
 /** Primary UI component for user interaction */
@@ -14,13 +16,17 @@ export const Button = ({
     size = 'medium',
     children,
     icon,
+    variant = 'primary',
     ...props
 }: ButtonProps) => {
     return (
         <RAButton
-            className={['button', `button--${size}`, 'button--primary'].join(
-                ' '
-            )}
+            className={[
+                'button',
+                `button--${size}`,
+                `button--${variant}`,
+                'button--primary',
+            ].join(' ')}
             {...props}>
             {icon}
             {children}
