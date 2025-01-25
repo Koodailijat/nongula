@@ -8,17 +8,18 @@ import { Button } from '../../../stories/components/Button/Button.tsx';
 import { PlusIcon } from 'lucide-react';
 import { months } from '../../utils/months.ts';
 import { useNavigate } from 'react-router';
+import { formatISO } from 'date-fns';
 
 export function DashboardRoute() {
-    const month = new Date().getMonth();
-    const date = new Date().getDate();
+    const datetime = new Date();
+    const dateString = formatISO(datetime, { representation: 'date' });
     const navigate = useNavigate();
 
     return (
         <div className="dashboard">
             <div className="dashboard__header">
                 <Heading level={1}>
-                    {months[month]} {date}.
+                    {months[datetime.getMonth()]} {datetime.getDate()}
                 </Heading>
                 <Badge>
                     <Text mode="secondary" size="large">
@@ -52,8 +53,8 @@ export function DashboardRoute() {
                 />
                 <Button
                     size="large"
-                    onPress={() => navigate('/modify')}
-                    icon={<PlusIcon size="16" />}>
+                    onPress={() => navigate(`/modify/${dateString}`)}
+                    icon={<PlusIcon size="16"/>}>
                     Add calories
                 </Button>
             </div>

@@ -12,7 +12,7 @@ ReactDOM.createRoot(root).render(
         <Routes>
             <Route path={'*'} element={<ErrorRoute />} />
             <Route path={'/'} element={<DashboardRoute />} />
-            <Route path={'/modify'} element={<ModifyRoute />} />
+            <Route path={'/modify/:date'} element={<ModifyRoute />} />
         </Routes>
     </BrowserRouter>
 );
