@@ -11,8 +11,9 @@ import { List } from '../../../stories/components/List/List.tsx';
 import { ListItem } from '../../../stories/components/List/ListItem.tsx';
 import { IconButton } from '../../../stories/components/IconButton/IconButton.tsx';
 import { Text } from '../../../stories/components/Text/Text.tsx';
+import { format, isValid } from 'date-fns';
+import { useDateParamToDate } from '../../hooks/usedateparamtodate.tsx';
 import { useNavigate, useParams } from 'react-router';
-import { format, isValid, parseISO } from 'date-fns';
 
 interface FoodItem {
     id: number;
@@ -25,7 +26,7 @@ interface FoodItem {
 export function ModifyRoute() {
     const [isOpen, setOpen] = useState(false);
     const isoDateString = useParams().date;
-    const datetime = useMemo(() => parseISO(isoDateString!), [isoDateString]);
+    const datetime = useDateParamToDate();
     const navigate = useNavigate();
     const [query, setQuery] = useState('');
     const [debouncedQuery, setDebouncedQuery] = useState('');
@@ -107,29 +108,31 @@ export function ModifyRoute() {
                 />
                 {/* List component to display results */}
                 {items.length > 0 && (
-                    <List className="food-list" items={items}>
-                        {({ id, name }) => (
-                            <ListItem
-                                className="modify-route__list-item"
-                                key={id}
-                                id={id}>
-                                <Text>{name.fi}</Text>
-                                <div className="modify-route__list-actions">
-                                    <IconButton
-                                        icon={
-                                            <Trash
-                                                strokeWidth={2}
-                                                color="red"
-                                            />
-                                        }
-                                        onPress={() => {
-                                            list.remove(id);
-                                        }}
-                                    />
-                                </div>
-                            </ListItem>
-                        )}
-                    </List>
+                    <div className={'search-results'}>
+                        <List className="food-list" items={items}>
+                            {({ id, name }) => (
+                                <ListItem
+                                    className="modify-route__list-item"
+                                    key={id}
+                                    id={id}>
+                                    <Text>{name.fi}</Text>
+                                    <div className="modify-route__list-actions">
+                                        <IconButton
+                                            icon={
+                                                <PlusIcon
+                                                    strokeWidth={2}
+                                                    color="green"
+                                                />
+                                            }
+                                            onPress={() => {
+                                                list.remove(id);
+                                            }}
+                                        />
+                                    </div>
+                                </ListItem>
+                            )}
+                        </List>
+                    </div>
                 )}
                 <List className="modify-route__list" items={list.items}>
                     {({ id, text }) => (
