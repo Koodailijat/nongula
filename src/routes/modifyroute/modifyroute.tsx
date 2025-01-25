@@ -9,6 +9,19 @@ import { useState } from 'react';
 export function ModifyRoute() {
     const [isOpen, setOpen] = useState(false);
 
+    // Mock data
+    const initialItems = [
+        { id: 1, text: '300 calories' },
+        { id: 2, text: '300 calories' },
+        { id: 3, text: '300 calories' },
+        { id: 4, text: '300 calories' },
+        { id: 5, text: '300 calories' },
+    ];
+
+    const list = useListData({
+        initialItems,
+    });
+
     return (
         <div className={'modify'}>
             <div className={'modify-wrapper'}>
@@ -27,9 +40,8 @@ export function ModifyRoute() {
                 <Button
                     style={{ width: '100%' }}
                     icon={<CirclePlus color="white" />}
-                    onPress={() => setOpen(true)}>
-                    children={'Custom calories'}
-                </Button>
+                    onPress={() => setOpen(true)}
+                    children={'Custom calories'}></Button>
                 <CustomCaloriesModal isOpen={isOpen} setOpen={setOpen} />
             </div>
         </div>
