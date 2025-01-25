@@ -11,9 +11,14 @@ import { List } from '../../../stories/components/List/List.tsx';
 import { ListItem } from '../../../stories/components/List/ListItem.tsx';
 import { IconButton } from '../../../stories/components/IconButton/IconButton.tsx';
 import { Text } from '../../../stories/components/Text/Text.tsx';
+import { useParams } from 'react-router';
+import { parseISO } from 'date-fns';
+import { months } from '../../utils/months.ts';
 
 export function ModifyRoute() {
     const [isOpen, setOpen] = useState(false);
+    const isoDateString = useParams().date;
+    const datetime = parseISO(isoDateString!);
 
     // Mock data
     const initialItems = [
@@ -30,7 +35,9 @@ export function ModifyRoute() {
 
     return (
         <div className="modify-route">
-            <Heading level={4}>Tuesday 21st</Heading>
+            <Heading level={1}>
+                {months[datetime.getMonth()]} {datetime.getDate()}
+            </Heading>
             <div className="modify-route__content">
                 <div className="modify-route__progress-bar">
                     <ProgressBar
