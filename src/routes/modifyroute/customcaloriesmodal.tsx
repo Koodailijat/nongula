@@ -27,6 +27,7 @@ export function CustomCaloriesModal({
             <div className={'custom-modal-wrapper'}>
                 <Heading level={3}>Custom calories</Heading>
                 <TextField
+                    isRequired={true}
                     label={'*Food name'}
                     placeholder={'Food name'}
                     children={'Search'}
