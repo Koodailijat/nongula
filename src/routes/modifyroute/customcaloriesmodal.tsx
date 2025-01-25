@@ -39,12 +39,15 @@ export function CustomCaloriesModal({
                 {selected === 0 ? (
                     <TextField
                         label={'Total calories'}
-                        placeholder={'Search'}
+                        placeholder={'Input calories'}
                     />
                 ) : (
                     <>
-                        <TextField label={'Kcal/100g'} placeholder={'Search'} />
-                        <TextField label={'Weight'} placeholder={'Search'} />
+                        <TextField
+                            label={'Kcal/100g'}
+                            placeholder={'Kcal/100g'}
+                        />
+                        <TextField label={'Weight'} placeholder={'Weight'} />
                     </>
                 )}
                 <Button
