@@ -8,7 +8,7 @@ import { Heading } from '../../../../stories/components/Heading/Heading.tsx';
 import './customcaloriesmodal.scss';
 import { useNutritionLocalStorage } from '../../../hooks/usenutritionlocalstorage.tsx';
 import { useParams } from 'react-router';
-import { Calories } from '../../../../stories/components/Calendar/Calendar.tsx';
+import { deepClone } from '../../../utils/deepclone.ts';
 
 interface CustomCaloriesModalProps {
     isOpen: boolean;
@@ -33,7 +33,7 @@ export function CustomCaloriesModal({
     };
 
     const onAdd = () => {
-        const newCalories = JSON.parse(JSON.stringify(calories)) as Calories;
+        const newCalories = deepClone(calories);
 
         if (totalCalories === 0) {
             if (newCalories[datetime]) {
