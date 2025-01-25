@@ -8,10 +8,12 @@ export function ErrorRoute() {
     const navigate = useNavigate();
     return (
         <div className="error-route">
-            <Heading level={1}>Something went wrong 🤔</Heading>
-            <Button onPress={() => navigate(-1)} icon={<ArrowLeft />}>
-                Go back to previous page
-            </Button>
+            <div className="error-route__content">
+                <Heading level={2}>Something went wrong 🤔</Heading>
+                <Button onPress={() => navigate(-1)} icon={<ArrowLeft />}>
+                    Go back to previous page
+                </Button>
+            </div>
         </div>
     );
 }
