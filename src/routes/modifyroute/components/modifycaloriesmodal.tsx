@@ -77,13 +77,13 @@ export function ModifCaloriesModal({
 
     return (
         <Modal
-            ariaLabel="Custom calories modal"
+            ariaLabel="Edit calories"
             isOpen={isOpen}
             onChange={onChange}
-            aria-label="Custom calories modal">
-            <div className={'modify-modal'} aria-label="Custom calories modal">
+            aria-label="Edit calories modal">
+            <div className={'modify-modal'} aria-label="Edit calories modal">
                 <Heading level={2} slot="title">
-                    Custom calories
+                    Edit calories
                 </Heading>
                 <div className="modify-modal__content">
                     <TextField
