@@ -5,12 +5,19 @@ import {
 
 interface ProgressBarProps {
     label: string;
+    targetValue?: number;
     value: number;
     valueText: string;
 }
 
 /** Primary UI component for progress bar */
-export const ProgressBar = ({ label, value, valueText }: ProgressBarProps) => {
+export const ProgressBar = ({
+    label,
+    value,
+    targetValue,
+    valueText,
+}: ProgressBarProps) => {
+    const target = targetValue ?? 100;
     return (
         <RAProgressBar value={value} className="progress-bar">
             <RALabel>{label}</RALabel>
@@ -18,7 +25,7 @@ export const ProgressBar = ({ label, value, valueText }: ProgressBarProps) => {
             <div className="progress-bar__bar">
                 <div
                     className="progress-bar__bar-fill"
-                    style={{ width: value + '%' }}
+                    style={{ width: value / target + '%' }}
                 />
             </div>
         </RAProgressBar>

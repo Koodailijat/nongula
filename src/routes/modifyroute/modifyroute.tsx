@@ -48,7 +48,8 @@ export function ModifyRoute() {
                 <div className="modify-route__progress-bar">
                     <ProgressBar
                         label={"Today's calories"}
-                        value={(currentDayCalories / targetCalories) * 100}
+                        targetValue={targetCalories}
+                        value={currentDayCalories}
                         valueText={'2000 kcal'}
                     />
                 </div>
