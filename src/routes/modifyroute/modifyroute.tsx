@@ -15,6 +15,7 @@ import { Text } from '../../../stories/components/Text/Text.tsx';
 import { format, isValid } from 'date-fns';
 import { useDateParamToDate } from '../../hooks/usedateparamtodate.tsx';
 import { useNavigate, useParams } from 'react-router';
+import { useQuery } from '@tanstack/react-query';
 
 interface FoodItem {
     id: number;
@@ -32,9 +33,8 @@ export function ModifyRoute() {
     const datetime = useDateParamToDate();
     const navigate = useNavigate();
     const [query, setQuery] = useState('');
-    const [debouncedQuery, setDebouncedQuery] = useState('');
-    const [items, setItems] = useState<FoodItem[]>([]); // State to store the first 5 results
     const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
+    const [selectedItemName, setSelectedItemName] = useState('');
 
     useEffect(() => {
         if (!isValid(datetime)) {
@@ -43,44 +43,31 @@ export function ModifyRoute() {
         }
     }, [datetime, isoDateString, navigate]);
 
-    // Debounce logic to reduce API calls
-    useEffect(() => {
-        const handler = setTimeout(() => {
-            setDebouncedQuery(query);
-        }, 500); // Wait for 500ms before updating debouncedQuery
-        return () => clearTimeout(handler); // Clear timeout on cleanup
-    }, [query]);
+    const fetchFoodItems = async (query: string): Promise<FoodItem[]> => {
+        const response = await fetch(
+            `https://fineli.fi/fineli/api/v1/foods?q=${query}`
+        );
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        const data: FoodItem[] = await response.json();
+        return data.slice(0, 5); // Get the first 5 results
+    };
 
-    // Fetch data when debouncedQuery changes
-    useEffect(() => {
-        if (debouncedQuery.trim() === '') return;
+    const {
+        data: items = [],
+        isLoading,
+        isError,
+    } = useQuery({
+        queryKey: ['foodItems', query],
+        queryFn: () => fetchFoodItems(query),
+        enabled: query.trim() !== '', // Only fetch when query is not empty
+        keepPreviousData: true, // Keep previous data while fetching new data
+    });
 
-        const fetchData = async () => {
-            console.log(
-                `https://fineli.fi/fineli/api/v1/foods?q=${debouncedQuery}`
-            );
-            try {
-                const response = await fetch(
-                    `https://fineli.fi/fineli/api/v1/foods?q=${debouncedQuery}`
-                );
-                if (!response.ok) {
-                    throw new Error('Failed to fetch data');
-                }
-                const data: FoodItem[] = await response.json();
-                const firstFive = data.slice(0, 5); // Get the first 5 results
-                setItems(firstFive); // Save the first 5 results in state
-                console.log(firstFive);
-                console.log(items.length);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
-        fetchData();
-    }, [debouncedQuery]);
-
-    const handleIconClick = (energyKcal: number) => {
+    const handleIconClick = (energyKcal: number, selectedItemName: string) => {
         setSelectedItemId(energyKcal); // Set the selected item's id
+        setSelectedItemName(selectedItemName);
         setOpen(true); // Open the modal
     };
 
@@ -116,6 +103,8 @@ export function ModifyRoute() {
                     onChange={(value) => setQuery(value)}
                 />
                 {/* List component to display results */}
+                {isLoading && <Text>Loading...</Text>}
+                {isError && <Text>Error fetching data.</Text>}
                 {items.length > 0 && (
                     <div className={'search-results'}>
                         <List className="food-list" items={items}>
@@ -134,7 +123,10 @@ export function ModifyRoute() {
                                                 />
                                             }
                                             onPress={() => {
-                                                handleIconClick(energyKcal);
+                                                handleIconClick(
+                                                    energyKcal,
+                                                    name.fi
+                                                );
                                             }}
                                         />
                                     </div>
@@ -172,6 +164,7 @@ export function ModifyRoute() {
                     isOpen={isOpen}
                     setOpen={setOpen}
                     itemId={selectedItemId}
+                    name={selectedItemName}
                 />
                 <CustomCaloriesModal
                     isOpen={isCustomCaloriesOpen}
