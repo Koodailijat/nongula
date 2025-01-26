@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Badge } from '../../../../stories/components/Badge/Badge.tsx';
 import { useTargetCaloriesLocalStorage } from '../../../hooks/usetargetcalorieslocalstorage.tsx';
 import { NutritionData, Item } from '../../../types/nutrition.ts';
 
-export const Streak: React.FC = () => {
+export function Streak() {
     const [streakCount, setStreakCount] = useState<number | null>(null);
 
     const [targetCalories] = useTargetCaloriesLocalStorage();
 
     useEffect(() => {
-        const calculateStreak = () => {
+        function calculateStreak() {
             const nutritionData = JSON.parse(
                 localStorage.getItem('nutrition') || '{}'
             ) as NutritionData;
@@ -40,7 +40,7 @@ export const Streak: React.FC = () => {
             }
 
             setStreakCount(consecutiveStreak);
-        };
+        }
 
         calculateStreak();
     }, [targetCalories]);
@@ -52,4 +52,4 @@ export const Streak: React.FC = () => {
             )}
         </div>
     );
-};
+}

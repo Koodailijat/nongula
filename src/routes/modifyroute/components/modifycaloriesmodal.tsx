@@ -15,7 +15,7 @@ interface ModifyCaloriesModalProps {
     foodId: string;
 }
 
-export function ModifCaloriesModal({
+export function ModifyCaloriesModal({
     isOpen,
     setOpen,
     foodId,
@@ -39,11 +39,11 @@ export function ModifCaloriesModal({
         }
     }, [calories, datetime, foodId]);
 
-    const onChange = (nextValue: boolean) => {
+    function onChange(nextValue: boolean) {
         setOpen(nextValue);
-    };
+    }
 
-    const onUpdate = () => {
+    function onUpdate() {
         const modifiedCalories = deepClone(calories);
 
         if (modifiedCalories[datetime]) {
@@ -67,7 +67,7 @@ export function ModifCaloriesModal({
             setCalories(modifiedCalories);
         }
         setOpen(false);
-    };
+    }
 
     return (
         <Modal
@@ -75,7 +75,7 @@ export function ModifCaloriesModal({
             isOpen={isOpen}
             onChange={onChange}
             aria-label="Edit calories modal">
-            <div className={'modify-modal'} aria-label="Edit calories modal">
+            <div className="modify-modal" aria-label="Edit calories modal">
                 <Heading level={2} slot="title">
                     Edit calories
                 </Heading>

@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { Button as RAButton } from 'react-aria-components';
 import { AriaButtonProps as RAButtonProps } from '@react-types/button';
 
@@ -6,12 +6,11 @@ export interface ButtonProps extends RAButtonProps {
     /** Button size */
     size?: 'small' | 'medium' | 'large';
     /** Icon as react component */
-    icon?: React.ReactNode;
+    icon?: ReactNode;
     /** Button variant */
     variant?: 'primary' | 'danger';
 }
 
-/** Primary UI component for user interaction */
 export const Button = ({
     size = 'medium',
     children,

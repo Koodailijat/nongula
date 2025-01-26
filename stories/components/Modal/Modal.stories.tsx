@@ -76,15 +76,17 @@ export const Sizes: Story = {
         // eslint-disable-next-line react-hooks/rules-of-hooks
         const [isOpenLarge, setOpenLarge] = useState(false);
 
-        const onChangeSmall = (nextValue: boolean) => {
+        function onChangeSmall(nextValue: boolean) {
             setOpenSmall(nextValue);
-        };
-        const onChangeMd = (nextValue: boolean) => {
+        }
+
+        function onChangeMedium(nextValue: boolean) {
             setOpenMedium(nextValue);
-        };
-        const onChangeLg = (nextValue: boolean) => {
+        }
+
+        function onChangeLarge(nextValue: boolean) {
             setOpenLarge(nextValue);
-        };
+        }
 
         return (
             <div style={{ display: 'flex', gap: '1rem' }}>
@@ -101,7 +103,7 @@ export const Sizes: Story = {
                     ariaLabel={'Medium modal'}
                     size="medium"
                     isOpen={isOpenMedium}
-                    onChange={onChangeMd}>
+                    onChange={onChangeMedium}>
                     <ExampleContent setOpen={setOpenMedium} />
                 </Modal>
                 <Button onPress={() => setOpenLarge(true)}>large</Button>
@@ -109,7 +111,7 @@ export const Sizes: Story = {
                     ariaLabel={'Large modal'}
                     size="large"
                     isOpen={isOpenLarge}
-                    onChange={onChangeLg}>
+                    onChange={onChangeLarge}>
                     <ExampleContent setOpen={setOpenLarge} />
                 </Modal>
             </div>

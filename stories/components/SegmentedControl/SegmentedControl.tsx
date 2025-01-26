@@ -1,8 +1,8 @@
 import { Button } from 'react-aria-components';
-import React, { Fragment, useState } from 'react';
+import { Fragment, ReactNode, useState } from 'react';
 
 interface SegmentedButtonProps {
-    children: React.ReactNode;
+    children: ReactNode;
     id: number;
     selected: number;
     setSelected: (id: number) => void;
