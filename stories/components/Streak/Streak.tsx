@@ -29,7 +29,7 @@ export const Streak: React.FC = () => {
                     0
                 );
                 console.log(dailyCalories);
-                if (dailyCalories > 2000) {
+                if (dailyCalories > 2000 * 0.8 && dailyCalories < 2000 * 1.1) {
                     streakCount += 1;
                 } else {
                     break;

@@ -1,7 +1,5 @@
 import { Heading } from '../../../stories/components/Heading/Heading.tsx';
-import { Badge } from '../../../stories/components/Badge/Badge.tsx';
 import './dashboardroute.scss';
-import { Text } from '../../../stories/components/Text/Text.tsx';
 import { CircularProgressBar } from '../../../stories/components/CircularProgressBar/CircularProgressBar.tsx';
 import { Calendar } from '../../../stories/components/Calendar/Calendar.tsx';
 import { Button } from '../../../stories/components/Button/Button.tsx';
