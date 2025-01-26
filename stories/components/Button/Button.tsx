@@ -3,16 +3,13 @@ import { Button as RAButton } from 'react-aria-components';
 import { AriaButtonProps as RAButtonProps } from '@react-types/button';
 
 export interface ButtonProps extends RAButtonProps {
-    /** Button size */
-    size?: 'small' | 'medium' | 'large';
     /** Icon as react component */
     icon?: ReactNode;
     /** Button variant */
-    variant?: 'primary' | 'danger';
+    variant?: 'primary' | 'secondary' | 'danger';
 }
 
 export const Button = ({
-    size = 'medium',
     children,
     icon,
     variant = 'primary',
@@ -20,12 +17,9 @@ export const Button = ({
 }: ButtonProps) => {
     return (
         <RAButton
-            className={[
-                'button',
-                `button--${size}`,
-                `button--${variant}`,
-                'button--primary',
-            ].join(' ')}
+            className={['button', `button--${variant}`, 'button--primary'].join(
+                ' '
+            )}
             {...props}>
             {icon}
             {children}

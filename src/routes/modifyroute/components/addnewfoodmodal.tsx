@@ -2,7 +2,6 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Button } from '../../../../stories/components/Button/Button.tsx';
 import { Modal } from '../../../../stories/components/Modal/Modal.tsx';
 import { Heading } from '../../../../stories/components/Heading/Heading.tsx';
-import './addnewfoodmodal.scss';
 import { TextField } from '../../../../stories/components/TextField/TextField.tsx';
 import { useNutritionLocalStorage } from '../../../hooks/usenutritionlocalstorage.tsx';
 import { PlusIcon } from 'lucide-react';

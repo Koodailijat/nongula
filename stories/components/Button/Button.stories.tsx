@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from './Button';
-import { CirclePlus, User } from 'lucide-react';
+import { Plus } from 'lucide-react';
 
 const meta = {
     title: 'Button',
@@ -14,30 +14,22 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
-    args: {
-        children: 'Button',
-        icon: <CirclePlus color="white" />,
-    },
+export const Default: Story = { args: { children: 'Button' } };
+
+export const Variants: Story = {
+    render: () => (
+        <div style={{ display: 'flex', gap: '16px' }}>
+            <Button variant="primary">Primary</Button>
+            <Button variant="secondary">Secondary</Button>
+            <Button variant="danger">Danger</Button>
+        </div>
+    ),
 };
 
-export const Medium: Story = {
-    args: {
-        children: 'Button',
-        icon: <User color="white" />,
-    },
-};
-
-export const Large: Story = {
-    args: {
-        size: 'large',
-        children: 'Button',
-    },
-};
-
-export const Small: Story = {
-    args: {
-        size: 'small',
-        children: 'Button',
-    },
+export const Icon: Story = {
+    render: () => (
+        <div style={{ display: 'flex', gap: '16px' }}>
+            <Button icon={<Plus />}>Icon</Button>
+        </div>
+    ),
 };
