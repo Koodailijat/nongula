@@ -201,7 +201,6 @@ export function ModifyRoute() {
                 </List>
                 <Button
                     onPress={() => setCustomCaloriesOpen(true)}
-                    size="large"
                     icon={<PlusIcon size="16" />}>
                     Add custom calories
                 </Button>

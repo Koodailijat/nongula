@@ -23,4 +23,10 @@
         flex-direction: row;
         gap: 1rem;
     }
+    .dashboard__button-container {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+    }
 }

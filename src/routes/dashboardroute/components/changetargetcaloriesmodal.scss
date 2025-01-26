@@ -1,0 +1,11 @@
+.target-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.target-modal__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
