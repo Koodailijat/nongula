@@ -104,7 +104,7 @@ export function ModifyRoute() {
                         label={"Today's calories"}
                         targetValue={targetCalories}
                         value={currentDayCalories}
-                        valueText={'2000 kcal'}
+                        valueText={`${currentDayCalories} / ${targetCalories} kcal`}
                     />
                 </div>
                 <TextField
