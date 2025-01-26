@@ -44,38 +44,27 @@ export function AddNewFoodModal({
 
     const onAdd = () => {
         const newCalories = deepClone(calories);
+        const caloriesValue =
+            totalCalories === 0 ? kcal * (weight / 100) : totalCalories;
+        newCalories[datetime] = newCalories[datetime] || [];
 
-        if (totalCalories === 0) {
-            if (newCalories[datetime]) {
-                newCalories[datetime].push({
-                    calories: kcal * (weight / 100),
-                    name: foodName,
-                });
-            } else {
-                newCalories[datetime] = [
-                    { calories: kcal * (weight / 100), name: foodName },
-                ];
-            }
-        } else {
-            if (newCalories[datetime]) {
-                newCalories[datetime].push({
-                    calories: totalCalories,
-                    name: foodName,
-                });
-            } else {
-                newCalories[datetime] = [
-                    { calories: totalCalories, name: foodName },
-                ];
-            }
-            setTotalCalories(0);
-        }
+        const newNutritionValue = {
+            calories: caloriesValue,
+            name: foodName,
+            id: crypto.randomUUID(),
+        };
+        newCalories[datetime].push(newNutritionValue);
 
+        setTotalCalories(0);
         setCalories(newCalories);
         setOpen(false);
     };
 
     return (
-        <Modal isOpen={isOpen} onChange={onChange}>
+        <Modal
+            ariaLabel={'AddNewFoodModal'}
+            isOpen={isOpen}
+            onChange={onChange}>
             <div className={'custom-modal'}>
                 <Heading level={2}>Add chosen food</Heading>
                 <TextField
