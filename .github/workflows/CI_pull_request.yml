@@ -17,7 +17,7 @@ jobs:
             - name: Lint
               run: npm run lint
     prettier:
-        name: Formatter
+        name: Formatter check
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
