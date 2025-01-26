@@ -17,9 +17,10 @@ import {
 } from 'react';
 import { format, isEqual } from 'date-fns';
 
-interface Nutrition {
+export interface Nutrition {
     calories: number;
     name: string;
+    id: string;
 }
 
 export interface Calories {
