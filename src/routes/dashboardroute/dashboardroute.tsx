@@ -14,6 +14,7 @@ import { useMemo } from 'react';
 import { useCurrentDayCalories } from '../../hooks/usecurrentdaycalories.tsx';
 import { useNongulaCalendarState } from '../../../stories/components/Calendar/useNongulaCalendarState.tsx';
 import { useSelectedDate } from '../../../stories/components/Calendar/useSelectedDate.tsx';
+import { getCellStyle } from './getcellstyle.ts';
 
 export function DashboardRoute() {
     const navigate = useNavigate();
@@ -49,6 +50,7 @@ export function DashboardRoute() {
                     state={state}
                     locale={locale.locale}
                     firstDayOfWeek="mon"
+                    cellStyleFn={getCellStyle}
                 />
                 <Button
                     size="large"
