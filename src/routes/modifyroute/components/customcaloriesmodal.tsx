@@ -64,7 +64,7 @@ export function CustomCaloriesModal({
                     <TextField
                         isRequired={true}
                         label="Food name"
-                        placeholder="Search"
+                        placeholder="Food name"
                         onChange={setFoodName}
                     />
                     <SegmentedControl
@@ -75,7 +75,7 @@ export function CustomCaloriesModal({
                     {selected === 0 ? (
                         <TextField
                             label="Total calories"
-                            placeholder="Input calories"
+                            placeholder="Total calories"
                             onChange={(value) =>
                                 setTotalCalories(Number(value))
                             }

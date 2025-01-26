@@ -1,4 +1,3 @@
-import './calendar.scss';
 import {
     Button as RAButton,
     Heading as RAHeading,

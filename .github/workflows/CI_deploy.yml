@@ -1,4 +1,4 @@
-name: Deploy app to GH Pages
+name: CI - Deployment
 
 on:
     push:
@@ -17,6 +17,7 @@ concurrency:
 
 jobs:
     deploy:
+        name: GH Pages deploy
         environment:
             name: github-pages
             url: ${{ steps.deployment.outputs.page_url }}
