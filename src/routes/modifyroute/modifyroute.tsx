@@ -15,7 +15,7 @@ import { Text } from '../../../stories/components/Text/Text.tsx';
 import { format, isValid } from 'date-fns';
 import { useDateParamToDate } from '../../hooks/usedateparamtodate.tsx';
 import { useNavigate, useParams } from 'react-router';
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 interface FoodItem {
     id: number;
@@ -33,7 +33,7 @@ export function ModifyRoute() {
     const datetime = useDateParamToDate();
     const navigate = useNavigate();
     const [query, setQuery] = useState('');
-    const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
+    const [selectedItemId, setSelectedItemId] = useState(0);
     const [selectedItemName, setSelectedItemName] = useState('');
 
     useEffect(() => {
@@ -62,7 +62,7 @@ export function ModifyRoute() {
         queryKey: ['foodItems', query],
         queryFn: () => fetchFoodItems(query),
         enabled: query.trim() !== '', // Only fetch when query is not empty
-        keepPreviousData: true, // Keep previous data while fetching new data
+        placeholderData: keepPreviousData, // Keep previous data while fetching new data
     });
 
     const handleIconClick = (energyKcal: number, selectedItemName: string) => {
