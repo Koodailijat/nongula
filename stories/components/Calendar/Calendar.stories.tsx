@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Calendar } from './Calendar.tsx';
-import { useState } from 'react';
+import { useNongulaCalendarState } from './useNongulaCalendarState.tsx';
 
 const meta: Meta<typeof Calendar> = {
     component: Calendar,
@@ -13,7 +13,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
     render: () => {
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+        const [state, locale] = useNongulaCalendarState();
         return (
             <Calendar
                 data={{
@@ -80,9 +80,9 @@ export const Default: Story = {
                         { id: '29', calories: 3100, name: 'Casserole' },
                     ],
                 }}
-                target_calories={2150}
-                selectedDate={selectedDate}
-                setSelectedDate={setSelectedDate}
+                state={state}
+                locale={locale.locale}
+                targetCalories={2150}
             />
         );
     },

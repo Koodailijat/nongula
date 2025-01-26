@@ -10,16 +10,19 @@ import { useNavigate } from 'react-router';
 import { format, formatISO } from 'date-fns';
 import { useNutritionLocalStorage } from '../../hooks/usenutritionlocalstorage.tsx';
 import { useTargetCaloriesLocalStorage } from '../../hooks/usetargetcalorieslocalstorage.tsx';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useCurrentDayCalories } from '../../hooks/usecurrentdaycalories.tsx';
+import { useNongulaCalendarState } from '../../../stories/components/Calendar/useNongulaCalendarState.tsx';
+import { useSelectedDate } from '../../../stories/components/Calendar/useSelectedDate.tsx';
 
 export function DashboardRoute() {
-    const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+    const navigate = useNavigate();
+    const [state, locale] = useNongulaCalendarState();
+    const selectedDate = useSelectedDate(state);
     const ISODate = useMemo(
-        () => formatISO(selectedDate, { representation: 'date' }),
+        () => formatISO(selectedDate.toString(), { representation: 'date' }),
         [selectedDate]
     );
-    const navigate = useNavigate();
     const [nutrition] = useNutritionLocalStorage();
     const [targetCalories] = useTargetCaloriesLocalStorage();
     const currentDayCalories = useCurrentDayCalories(ISODate, nutrition);
@@ -41,10 +44,11 @@ export function DashboardRoute() {
                     target={targetCalories}
                 />
                 <Calendar
-                    selectedDate={selectedDate}
-                    setSelectedDate={setSelectedDate}
                     data={nutrition}
-                    target_calories={2100}
+                    targetCalories={targetCalories}
+                    state={state}
+                    locale={locale.locale}
+                    firstDayOfWeek="mon"
                 />
                 <Button
                     size="large"

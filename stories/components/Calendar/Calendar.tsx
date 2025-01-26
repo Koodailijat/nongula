@@ -1,23 +1,19 @@
 import './calendar.scss';
 import {
     Button as RAButton,
-    Calendar as RACalendar,
-    CalendarCell as RACalendarCell,
-    CalendarGrid as RACalendarGrid,
     Heading as RAHeading,
-    CalendarStateContext,
+    CalendarProps as RACalendarProps,
+    CalendarCellProps as RACalendarCellProps,
 } from 'react-aria-components';
-import { CalendarDate } from '@internationalized/date';
-import {
-    CSSProperties,
-    Dispatch,
-    SetStateAction,
-    useContext,
-    useEffect,
-} from 'react';
+import { useCalendar, useCalendarCell, useCalendarGrid } from 'react-aria';
+import { CalendarDate, getWeeksInMonth } from '@internationalized/date';
+import { CSSProperties, useRef } from 'react';
 import { format, isEqual } from 'date-fns';
+import { CalendarState } from 'react-stately';
+import { DateValue } from '@react-types/datepicker';
+import { useSelectedDate } from './useSelectedDate.tsx';
 
-export interface Nutrition {
+interface Nutrition {
     calories: number;
     name: string;
     id: string;
@@ -49,7 +45,7 @@ function getColor(value: number) {
 function getStyle(
     date: CalendarDate,
     data: Calories,
-    target_calories: number,
+    targetCalories: number,
     selectedDate: Date
 ): CSSProperties {
     const isoDate = `${date.year}-${date.month.toString().padStart(2, '0')}-${date.day.toString().padStart(2, '0')}`;
@@ -65,7 +61,7 @@ function getStyle(
                     (previousValue, currentValue) =>
                         previousValue + currentValue.calories,
                     0
-                ) / target_calories
+                ) / targetCalories
             ),
             outline: isSelectedDate ? '4px solid black' : 'none',
         };
@@ -73,61 +69,111 @@ function getStyle(
     return { outline: isSelectedDate ? '4px solid black' : 'none' };
 }
 
-interface CalendarValueSelectionProps {
-    selectionChangeCb: (selectedDate: Date) => void;
+interface CalendarCellProps extends RACalendarCellProps {
+    state: CalendarState;
 }
 
-function CalendarValueSelection({
-    selectionChangeCb,
-}: CalendarValueSelectionProps) {
-    const state = useContext(CalendarStateContext)!;
-    useEffect(() => {
-        const value = state?.value;
-        if (value) {
-            selectionChangeCb(new Date(value.toString()));
-        }
-    }, [selectionChangeCb, state]);
-    return null;
+function CalendarCell({ state, date, style }: CalendarCellProps) {
+    const ref = useRef(null);
+    const {
+        cellProps,
+        buttonProps,
+        isSelected,
+        isOutsideVisibleRange,
+        isDisabled,
+        isUnavailable,
+        formattedDate,
+    } = useCalendarCell({ date }, state, ref);
+
+    return (
+        <td {...cellProps}>
+            <div
+                {...buttonProps}
+                ref={ref}
+                hidden={isOutsideVisibleRange}
+                className={`calendar-cell ${isSelected ? 'selected' : ''} ${
+                    isDisabled ? 'disabled' : ''
+                } ${isUnavailable ? 'unavailable' : ''}`}
+                style={{ ...style }}>
+                {formattedDate}
+            </div>
+        </td>
+    );
 }
 
-interface CalendarProps {
+interface CalendarProps extends RACalendarProps<DateValue> {
     data: Calories;
-    target_calories: number;
-    selectedDate: Date;
-    setSelectedDate: Dispatch<SetStateAction<Date>>;
+    targetCalories: number;
+    state: CalendarState;
+    locale: string;
 }
 
 export function Calendar({
     data,
-    selectedDate,
-    setSelectedDate,
-    target_calories,
+    state,
+    locale,
+    targetCalories,
+    ...props
 }: CalendarProps) {
+    const selectedDate = useSelectedDate(state);
+    // CALENDAR
+    const { calendarProps, prevButtonProps, nextButtonProps, title } =
+        useCalendar(props, state);
+
+    // GRID
+    const { gridProps, headerProps, weekDays } = useCalendarGrid(props, state);
+
+    const weeksInMonth = getWeeksInMonth(
+        state.visibleRange.start,
+        locale,
+        props.firstDayOfWeek
+    );
+
     return (
-        <RACalendar aria-label="Stats" firstDayOfWeek="mon">
-            <header>
-                <RAButton className="calendar-button" slot="previous">
+        <div {...calendarProps} className="calendar">
+            <header className="calendar-header">
+                <RAButton {...prevButtonProps} className="calendar-button">
                     ◀
                 </RAButton>
-                <RAHeading />
-                <RAButton className="calendar-button" slot="next">
+                <RAHeading className="calendar-heading">{title}</RAHeading>
+                <RAButton {...nextButtonProps} className="calendar-button">
                     ▶
                 </RAButton>
             </header>
-            <RACalendarGrid>
-                {(date) => (
-                    <RACalendarCell
-                        style={getStyle(
-                            date,
-                            data,
-                            target_calories,
-                            selectedDate
-                        )}
-                        date={date}
-                    />
-                )}
-            </RACalendarGrid>
-            <CalendarValueSelection selectionChangeCb={setSelectedDate} />
-        </RACalendar>
+            <table {...gridProps}>
+                <thead {...headerProps}>
+                    <tr>
+                        {weekDays.map((day, index) => (
+                            <th key={index}>{day}</th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {[...new Array(weeksInMonth).keys()].map((weekIndex) => (
+                        <tr key={weekIndex}>
+                            {state
+                                .getDatesInWeek(weekIndex)
+                                .map((date, i) =>
+                                    date ? (
+                                        <CalendarCell
+                                            key={i}
+                                            state={state}
+                                            date={date}
+                                            style={getStyle(
+                                                date,
+                                                data,
+                                                targetCalories,
+                                                selectedDate
+                                            )}
+                                        />
+                                    ) : (
+                                        <td key={i} />
+                                    )
+                                )}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
     );
 }
