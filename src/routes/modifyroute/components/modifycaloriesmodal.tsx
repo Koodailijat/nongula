@@ -81,11 +81,11 @@ export function ModifCaloriesModal({
             isOpen={isOpen}
             onChange={onChange}
             aria-label="Custom calories modal">
-            <div className={'custom-modal'} aria-label="Custom calories modal">
+            <div className={'modify-modal'} aria-label="Custom calories modal">
                 <Heading level={2} slot="title">
                     Custom calories
                 </Heading>
-                <div className="custom-modal__content">
+                <div className="modify-modal__content">
                     <TextField
                         value={name}
                         onChange={setName}
@@ -100,7 +100,7 @@ export function ModifCaloriesModal({
                         placeholder={'Input calories'}
                     />
                 </div>
-                <div className="custom-modal__actions">
+                <div className="modify-modal__actions">
                     <Button
                         onPress={onUpdate}
                         icon={<RefreshCw color="white" size="16" />}>
