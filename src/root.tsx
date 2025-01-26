@@ -13,7 +13,7 @@ const root = document.getElementById('root')!;
 
 ReactDOM.createRoot(root).render(
     <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
             <Routes>
                 <Route path={'*'} element={<ErrorRoute />} />
                 <Route path={'/'} element={<DashboardRoute />} />
