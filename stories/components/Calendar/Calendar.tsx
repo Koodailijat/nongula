@@ -5,50 +5,58 @@ import {
     CalendarCell as RACalendarCell,
     CalendarGrid as RACalendarGrid,
     Heading as RAHeading,
+    CalendarStateContext,
 } from 'react-aria-components';
-
 import { CalendarDate } from '@internationalized/date';
-import { CSSProperties } from 'react';
+import {
+    CSSProperties,
+    Dispatch,
+    SetStateAction,
+    useContext,
+    useEffect,
+} from 'react';
+import { format, isEqual } from 'date-fns';
 
-interface Nutrition {
+export interface Nutrition {
     calories: number;
     name: string;
+    id: string;
 }
 
 export interface Calories {
     [key: string]: Nutrition[];
 }
 
-interface CalendarProps {
-    data: Calories;
-    target_calories: number;
-}
-
 function getColor(value: number) {
     if (value < 0.2) {
-        return '#8EFFC1';
+        return '#00c65a';
     } else if (value < 0.4) {
-        return '#1DBC60';
+        return '#19a052';
     } else if (value < 0.6) {
-        return '#0DAC50';
+        return '#0b9244';
     } else if (value < 0.8) {
-        return '#009C41';
+        return '#008537';
     } else if (value < 0.9) {
-        return '#007A2A';
+        return '#006824';
     } else if (value < 1.1) {
-        return '#D4D23A';
+        return '#bcba29';
     } else if (value < 1.3) {
-        return '#D84F3A';
+        return '#c23b26';
     }
-    return '#E02323';
+    return '#941515';
 }
 
 function getStyle(
     date: CalendarDate,
     data: Calories,
-    target_calories: number
+    target_calories: number,
+    selectedDate: Date
 ): CSSProperties {
     const isoDate = `${date.year}-${date.month.toString().padStart(2, '0')}-${date.day.toString().padStart(2, '0')}`;
+    const isSelectedDate = isEqual(
+        date.toString(),
+        format(selectedDate, 'yyyy-MM-dd')
+    );
 
     if (data?.[isoDate]?.length) {
         return {
@@ -59,12 +67,42 @@ function getStyle(
                     0
                 ) / target_calories
             ),
+            outline: isSelectedDate ? '4px solid black' : 'none',
         };
     }
-    return {};
+    return { outline: isSelectedDate ? '4px solid black' : 'none' };
 }
 
-export function Calendar({ data, target_calories }: CalendarProps) {
+interface CalendarValueSelectionProps {
+    selectionChangeCb: (selectedDate: Date) => void;
+}
+
+function CalendarValueSelection({
+    selectionChangeCb,
+}: CalendarValueSelectionProps) {
+    const state = useContext(CalendarStateContext)!;
+    useEffect(() => {
+        const value = state?.value;
+        if (value) {
+            selectionChangeCb(new Date(value.toString()));
+        }
+    }, [selectionChangeCb, state]);
+    return null;
+}
+
+interface CalendarProps {
+    data: Calories;
+    target_calories: number;
+    selectedDate: Date;
+    setSelectedDate: Dispatch<SetStateAction<Date>>;
+}
+
+export function Calendar({
+    data,
+    selectedDate,
+    setSelectedDate,
+    target_calories,
+}: CalendarProps) {
     return (
         <RACalendar aria-label="Stats" firstDayOfWeek="mon">
             <header>
@@ -79,11 +117,17 @@ export function Calendar({ data, target_calories }: CalendarProps) {
             <RACalendarGrid>
                 {(date) => (
                     <RACalendarCell
-                        style={getStyle(date, data, target_calories)}
+                        style={getStyle(
+                            date,
+                            data,
+                            target_calories,
+                            selectedDate
+                        )}
                         date={date}
                     />
                 )}
             </RACalendarGrid>
+            <CalendarValueSelection selectionChangeCb={setSelectedDate} />
         </RACalendar>
     );
 }
