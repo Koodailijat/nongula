@@ -10,9 +10,10 @@ import {
 import { CalendarDate } from '@internationalized/date';
 import { CSSProperties } from 'react';
 
-interface Nutrition {
+export interface Nutrition {
     calories: number;
     name: string;
+    id: string;
 }
 
 export interface Calories {
