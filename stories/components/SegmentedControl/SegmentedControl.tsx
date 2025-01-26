@@ -1,5 +1,5 @@
 import { Button } from 'react-aria-components';
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 
 interface SegmentedButtonProps {
     children: React.ReactNode;
@@ -79,7 +79,7 @@ export function SegmentedControl({
                     divider = true;
                 }
                 return (
-                    <>
+                    <Fragment key={idx}>
                         <SegmentedButton
                             id={idx}
                             selected={selected}
@@ -89,7 +89,7 @@ export function SegmentedControl({
                             {segment}
                         </SegmentedButton>
                         {divider && <Divider />}
-                    </>
+                    </Fragment>
                 );
             })}
         </div>

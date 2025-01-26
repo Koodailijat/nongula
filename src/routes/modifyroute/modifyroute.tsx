@@ -54,6 +54,7 @@ export function ModifyRoute() {
                     />
                 </div>
                 <TextField
+                    aria-label={'Search'}
                     iconSide={'left'}
                     icon={<SearchIcon />}
                     placeholder={'Search'}
@@ -69,7 +70,8 @@ export function ModifyRoute() {
                             <ListItem
                                 className="modify-route__list-item"
                                 key={id}
-                                id={id}>
+                                id={id}
+                                textValue={name}>
                                 <div
                                     style={{
                                         display: 'flex',

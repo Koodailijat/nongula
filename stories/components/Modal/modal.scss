@@ -47,6 +47,9 @@
 
 .react-aria-Dialog {
     padding: 16px;
+    &:focus-visible {
+        outline-color: dodgerblue;
+    }
 }
 
 @keyframes modal-fade {

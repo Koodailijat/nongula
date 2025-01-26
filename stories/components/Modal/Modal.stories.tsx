@@ -56,7 +56,10 @@ export const Default: Story = {
         return (
             <div style={{ display: 'flex', gap: '1rem' }}>
                 <Button onPress={() => setOpen(true)}>Open</Button>
-                <Modal isOpen={isOpen} onChange={onChange}>
+                <Modal
+                    ariaLabel="Default modal"
+                    isOpen={isOpen}
+                    onChange={onChange}>
                     <ExampleContent setOpen={setOpen} />
                 </Modal>
             </div>
@@ -87,6 +90,7 @@ export const Sizes: Story = {
             <div style={{ display: 'flex', gap: '1rem' }}>
                 <Button onPress={() => setOpenSmall(true)}>small</Button>
                 <Modal
+                    ariaLabel={'Small modal'}
                     size="small"
                     isOpen={isOpenSmall}
                     onChange={onChangeSmall}>
@@ -94,13 +98,18 @@ export const Sizes: Story = {
                 </Modal>
                 <Button onPress={() => setOpenMedium(true)}>medium</Button>
                 <Modal
+                    ariaLabel={'Medium modal'}
                     size="medium"
                     isOpen={isOpenMedium}
                     onChange={onChangeMd}>
                     <ExampleContent setOpen={setOpenMedium} />
                 </Modal>
                 <Button onPress={() => setOpenLarge(true)}>large</Button>
-                <Modal size="large" isOpen={isOpenLarge} onChange={onChangeLg}>
+                <Modal
+                    ariaLabel={'Large modal'}
+                    size="large"
+                    isOpen={isOpenLarge}
+                    onChange={onChangeLg}>
                     <ExampleContent setOpen={setOpenLarge} />
                 </Modal>
             </div>
