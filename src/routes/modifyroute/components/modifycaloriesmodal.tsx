@@ -35,13 +35,7 @@ export function ModifCaloriesModal({
             if (modifiedNutrition) {
                 setName(modifiedNutrition.name);
                 setCaloriesValue(modifiedNutrition.calories);
-            } else {
-                setName('');
-                setCaloriesValue(0);
             }
-        } else {
-            setName('');
-            setCaloriesValue(0);
         }
     }, [calories, datetime, foodId]);
 
