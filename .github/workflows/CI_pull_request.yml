@@ -8,6 +8,7 @@ on:
 
 jobs:
     lint:
+        name: Linter check
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -16,6 +17,7 @@ jobs:
             - name: Lint
               run: npm run lint
     prettier:
+        name: Formatter
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -24,6 +26,7 @@ jobs:
             - name: Prettier
               run: npm run prettier
     ts-check:
+        name: TypeScript check
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
