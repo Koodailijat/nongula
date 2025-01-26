@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Badge } from '../Badge/Badge.tsx';
+import { useTargetCaloriesLocalStorage } from '../../../src/hooks/usetargetcalorieslocalstorage.tsx';
 
 type CalorieData = {
     calories: number;
@@ -11,6 +12,8 @@ type StreakData = Record<string, CalorieData[]>;
 
 export const Streak: React.FC = () => {
     const [streak, setStreak] = useState<number | null>(null);
+
+    const [targetCalories] = useTargetCaloriesLocalStorage();
 
     useEffect(() => {
         const calculateStreak = () => {
@@ -29,7 +32,10 @@ export const Streak: React.FC = () => {
                     0
                 );
                 console.log(dailyCalories);
-                if (dailyCalories > 2000 * 0.8 && dailyCalories < 2000 * 1.1) {
+                if (
+                    dailyCalories > targetCalories * 0.8 &&
+                    dailyCalories < targetCalories * 1.1
+                ) {
                     streakCount += 1;
                 } else {
                     break;
