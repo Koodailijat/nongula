@@ -51,7 +51,7 @@ export function CustomCaloriesModal({
 
     return (
         <Modal
-            ariaLabel={'Custom calories modal'}
+            ariaLabel="Custom calories modal"
             isOpen={isOpen}
             onChange={onChange}
             aria-label="Custom calories modal">

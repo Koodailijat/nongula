@@ -70,7 +70,8 @@ export function ModifyRoute() {
                             <ListItem
                                 className="modify-route__list-item"
                                 key={id}
-                                id={id} textValue={name}>
+                                id={id}
+                                textValue={name}>
                                 <div
                                     style={{
                                         display: 'flex',
