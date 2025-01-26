@@ -9,17 +9,29 @@ import { PlusIcon } from 'lucide-react';
 import { useNavigate } from 'react-router';
 import { format, formatISO } from 'date-fns';
 import { useNutritionLocalStorage } from '../../hooks/usenutritionlocalstorage.tsx';
+import { useTargetCaloriesLocalStorage } from '../../hooks/usetargetcalorieslocalstorage.tsx';
+import { useMemo } from 'react';
+import { useCurrentDayCalories } from '../../hooks/usecurrentdaycalories.tsx';
+import { useNongulaCalendarState } from '../../../stories/components/Calendar/useNongulaCalendarState.tsx';
+import { useSelectedDate } from '../../../stories/components/Calendar/useSelectedDate.tsx';
+import { getCellStyle } from './getcellstyle.ts';
 
 export function DashboardRoute() {
-    const datetime = new Date();
-    const dateString = formatISO(datetime, { representation: 'date' });
     const navigate = useNavigate();
-    const [value] = useNutritionLocalStorage();
+    const [state, locale] = useNongulaCalendarState();
+    const selectedDate = useSelectedDate(state);
+    const ISODate = useMemo(
+        () => formatISO(selectedDate.toString(), { representation: 'date' }),
+        [selectedDate]
+    );
+    const [nutrition] = useNutritionLocalStorage();
+    const [targetCalories] = useTargetCaloriesLocalStorage();
+    const currentDayCalories = useCurrentDayCalories(ISODate, nutrition);
 
     return (
         <div className="dashboard">
             <div className="dashboard__header">
-                <Heading level={1}>{format(datetime, 'LLLL do')}</Heading>
+                <Heading level={1}>{format(selectedDate, 'LLLL do')}</Heading>
                 <Badge>
                     <Text mode="secondary" size="large">
                         4 🔥
@@ -28,14 +40,21 @@ export function DashboardRoute() {
             </div>
             <div className="dashboard__content">
                 <CircularProgressBar
-                    value={1931}
+                    value={currentDayCalories}
                     heading="Calories"
-                    target={2100}
+                    target={targetCalories}
                 />
-                <Calendar data={value} target_calories={2100} />
+                <Calendar
+                    data={nutrition}
+                    targetCalories={targetCalories}
+                    state={state}
+                    locale={locale.locale}
+                    firstDayOfWeek="mon"
+                    cellStyleFn={getCellStyle}
+                />
                 <Button
                     size="large"
-                    onPress={() => navigate(`/modify/${dateString}`)}
+                    onPress={() => navigate(`/modify/${ISODate}`)}
                     icon={<PlusIcon size="16" />}>
                     Add calories
                 </Button>

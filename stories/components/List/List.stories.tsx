@@ -36,7 +36,7 @@ export const Default: Story = {
         return (
             <List items={list.items}>
                 {(item) => (
-                    <ListItem key={item.id} id={item.id}>
+                    <ListItem key={item.id} id={item.id} textValue={item.text}>
                         <div
                             style={{
                                 display: 'flex',

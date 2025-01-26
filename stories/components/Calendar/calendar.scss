@@ -1,14 +1,14 @@
-.react-aria-Calendar {
+.calendar {
     width: fit-content;
     max-width: 100%;
     color: var(--text-color);
 
-    header {
+    .calendar-header {
         display: flex;
         align-items: center;
         margin: 0 4px 0.5rem 4px;
 
-        .react-aria-Heading {
+        .calendar-heading {
             flex: 1;
             margin: 0;
             text-align: center;
@@ -26,7 +26,7 @@
         color: white;
     }
 
-    .react-aria-CalendarCell {
+    .calendar-cell {
         width: 2rem;
         line-height: 2rem;
         text-align: center;
@@ -48,7 +48,7 @@
         }
 
         &[data-pressed] {
-            background: var(--gray-100);
+            background: pink;
         }
 
         &[data-focus-visible] {

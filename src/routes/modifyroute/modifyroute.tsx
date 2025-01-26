@@ -5,8 +5,7 @@ import { CustomCaloriesModal } from './components/customcaloriesmodal.tsx';
 import { AddNewFoodModal } from './components/addnewfoodmodal.tsx';
 import { Pen, PlusIcon, SearchIcon, Trash } from 'lucide-react';
 import './modifyroute.scss';
-import { useEffect, useState } from 'react';
-import { useListData } from 'react-stately';
+import { useEffect, useMemo, useState } from 'react';
 import { TextField } from '../../../stories/components/TextField/TextField.tsx';
 import { List } from '../../../stories/components/List/List.tsx';
 import { ListItem } from '../../../stories/components/List/ListItem.tsx';
@@ -14,6 +13,10 @@ import { IconButton } from '../../../stories/components/IconButton/IconButton.ts
 import { Text } from '../../../stories/components/Text/Text.tsx';
 import { format, isValid } from 'date-fns';
 import { useDateParamToDate } from '../../hooks/usedateparamtodate.tsx';
+import { useNutritionLocalStorage } from '../../hooks/usenutritionlocalstorage.tsx';
+import { useTargetCaloriesLocalStorage } from '../../hooks/usetargetcalorieslocalstorage.tsx';
+import { deepClone } from '../../utils/deepclone.ts';
+import { ModifCaloriesModal } from './components/modifycaloriesmodal.tsx';
 import { useNavigate, useParams } from 'react-router';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
@@ -27,10 +30,14 @@ interface FoodItem {
 }
 
 export function ModifyRoute() {
+    const [isModifyModalOpen, setIsModifyModalOpen] = useState(false);
     const [isOpen, setOpen] = useState(false);
     const [isCustomCaloriesOpen, setCustomCaloriesOpen] = useState(false);
     const isoDateString = useParams().date;
     const datetime = useDateParamToDate();
+    const dateString = useParams().date!;
+    const [nutrition, setNutrition] = useNutritionLocalStorage();
+    const [id, setId] = useState('');
     const navigate = useNavigate();
     const [query, setQuery] = useState('');
     const [selectedItemId, setSelectedItemId] = useState(0);
@@ -71,18 +78,28 @@ export function ModifyRoute() {
         setOpen(true); // Open the modal
     };
 
-    // Mock data
-    const initialItems = [
-        { id: 1, text: '300 calories' },
-        { id: 2, text: '300 calories' },
-        { id: 3, text: '300 calories' },
-        { id: 4, text: '300 calories' },
-        { id: 5, text: '300 calories' },
-    ];
+    const currentDayCalories = useMemo(() => {
+        if (!nutrition[dateString]) {
+            return 0;
+        }
+        return nutrition[dateString].reduce(
+            (totalCalories, food) => totalCalories + food.calories,
+            0
+        );
+    }, [dateString, nutrition]);
+    const [targetCalories] = useTargetCaloriesLocalStorage();
+    const onDelete = (id: string) => {
+        const newNutrition = deepClone(nutrition);
+        newNutrition[dateString] = newNutrition[dateString].filter(
+            (food) => food.id !== id
+        );
+        setNutrition(newNutrition);
+    };
 
-    const list = useListData({
-        initialItems,
-    });
+    const onModifyPress = (id: string) => {
+        setId(id);
+        setIsModifyModalOpen(true);
+    };
 
     return (
         <div className="modify-route">
@@ -91,11 +108,13 @@ export function ModifyRoute() {
                 <div className="modify-route__progress-bar">
                     <ProgressBar
                         label={"Today's calories"}
-                        value={30}
+                        targetValue={targetCalories}
+                        value={currentDayCalories}
                         valueText={'2000 kcal'}
                     />
                 </div>
                 <TextField
+                    aria-label={'Search'}
                     iconSide={'left'}
                     icon={<SearchIcon />}
                     placeholder={'Search'}
@@ -135,24 +154,47 @@ export function ModifyRoute() {
                         </List>
                     </div>
                 )}
-                <List className="modify-route__list" items={list.items}>
-                    {({ id, text }) => (
-                        <ListItem
-                            className="modify-route__list-item"
-                            key={id}
-                            id={id}>
-                            <Text>{text}</Text>
-                            <div className="modify-route__list-actions">
-                                <IconButton icon={<Pen strokeWidth={2} />} />
-                                <IconButton
-                                    icon={<Trash strokeWidth={2} color="red" />}
-                                    onPress={() => {
-                                        list.remove(id);
-                                    }}
-                                />
-                            </div>
-                        </ListItem>
-                    )}
+                <List
+                    className="modify-route__list"
+                    items={nutrition[dateString]}>
+                    {({ calories, name, id }) => {
+                        if (!id) {
+                            return null;
+                        }
+                        return (
+                            <ListItem
+                                className="modify-route__list-item"
+                                key={id}
+                                id={id}
+                                textValue={name}>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                    }}>
+                                    <Text size={'large'}>{name}</Text>
+                                    <Text size={'large'}>
+                                        {calories} calories
+                                    </Text>
+                                </div>
+                                <div className="modify-route__list-actions">
+                                    <IconButton
+                                        onPress={() => onModifyPress(id)}
+                                        icon={<Pen strokeWidth={2} />}
+                                    />
+                                    <IconButton
+                                        icon={
+                                            <Trash
+                                                strokeWidth={2}
+                                                color="red"
+                                            />
+                                        }
+                                        onPress={() => onDelete(id)}
+                                    />
+                                </div>
+                            </ListItem>
+                        );
+                    }}
                 </List>
                 <Button
                     onPress={() => setCustomCaloriesOpen(true)}
@@ -160,15 +202,20 @@ export function ModifyRoute() {
                     icon={<PlusIcon size="16" />}>
                     Add custom calories
                 </Button>
+                <CustomCaloriesModal
+                    isOpen={isCustomCaloriesOpen}
+                    setOpen={setCustomCaloriesOpen}
+                />
+                <ModifCaloriesModal
+                    foodId={id}
+                    isOpen={isModifyModalOpen}
+                    setOpen={setIsModifyModalOpen}
+                />
                 <AddNewFoodModal
                     isOpen={isOpen}
                     setOpen={setOpen}
                     itemId={selectedItemId}
                     name={selectedItemName}
-                />
-                <CustomCaloriesModal
-                    isOpen={isCustomCaloriesOpen}
-                    setOpen={setCustomCaloriesOpen}
                 />
             </div>
         </div>
