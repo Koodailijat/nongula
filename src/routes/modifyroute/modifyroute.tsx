@@ -131,7 +131,8 @@ export function ModifyRoute() {
                                 <ListItem
                                     className="modify-route__list-item"
                                     key={id}
-                                    id={id}>
+                                    id={id}
+                                    textValue={name.fi}>
                                     <Text>{name.fi}</Text>
                                     <div className="modify-route__list-actions">
                                         <IconButton

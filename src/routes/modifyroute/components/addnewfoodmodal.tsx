@@ -49,7 +49,7 @@ export function AddNewFoodModal({
         newCalories[datetime] = newCalories[datetime] || [];
 
         const newNutritionValue = {
-            calories: caloriesValue,
+            calories: Math.round(caloriesValue),
             name: foodName,
             id: crypto.randomUUID(),
         };
