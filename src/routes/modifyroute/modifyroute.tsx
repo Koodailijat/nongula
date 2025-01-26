@@ -16,12 +16,16 @@ import { useNutritionLocalStorage } from '../../hooks/usenutritionlocalstorage.t
 import { useParams } from 'react-router';
 import { useTargetCaloriesLocalStorage } from '../../hooks/usetargetcalorieslocalstorage.tsx';
 import { deepClone } from '../../utils/deepclone.ts';
+import { ModifCaloriesModal } from './components/modifycaloriesmodal.tsx';
 
 export function ModifyRoute() {
-    const [isOpen, setOpen] = useState(false);
+    const [isCustomCaloriesModalOpen, setIsCustomCaloriesModalOpen] =
+        useState(false);
+    const [isModifyModalOpen, setIsModifyModalOpen] = useState(false);
     const datetime = useDateParamToDate();
     const dateString = useParams().date!;
     const [nutrition, setNutrition] = useNutritionLocalStorage();
+    const [id, setId] = useState('');
 
     const currentDayCalories = useMemo(() => {
         if (!nutrition[dateString]) {
@@ -39,6 +43,11 @@ export function ModifyRoute() {
             (food) => food.id !== id
         );
         setNutrition(newNutrition);
+    };
+
+    const onModifyPress = (id: string) => {
+        setId(id);
+        setIsModifyModalOpen(true);
     };
 
     return (
@@ -84,6 +93,7 @@ export function ModifyRoute() {
                                 </div>
                                 <div className="modify-route__list-actions">
                                     <IconButton
+                                        onPress={() => onModifyPress(id)}
                                         icon={<Pen strokeWidth={2} />}
                                     />
                                     <IconButton
@@ -101,12 +111,20 @@ export function ModifyRoute() {
                     }}
                 </List>
                 <Button
-                    onPress={() => setOpen(true)}
+                    onPress={() => setIsCustomCaloriesModalOpen(true)}
                     size="large"
                     icon={<PlusIcon size="16" />}>
                     Add custom calories
                 </Button>
-                <CustomCaloriesModal isOpen={isOpen} setOpen={setOpen} />
+                <CustomCaloriesModal
+                    isOpen={isCustomCaloriesModalOpen}
+                    setOpen={setIsCustomCaloriesModalOpen}
+                />
+                <ModifCaloriesModal
+                    foodId={id}
+                    isOpen={isModifyModalOpen}
+                    setOpen={setIsModifyModalOpen}
+                />
             </div>
         </div>
     );
