@@ -12,7 +12,7 @@ import { useCurrentDayCalories } from '../../hooks/usecurrentdaycalories.tsx';
 import { useNongulaCalendarState } from '../../../stories/components/Calendar/useNongulaCalendarState.tsx';
 import { useSelectedDate } from '../../../stories/components/Calendar/useSelectedDate.tsx';
 import { getCellStyle } from './getcellstyle.ts';
-import { Streak } from './components/Streak.tsx';
+import { Streak } from './components/streak.tsx';
 import { ChangeTargetCaloriesModal } from './components/changetargetcaloriesmodal.tsx';
 
 export function DashboardRoute() {

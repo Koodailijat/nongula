@@ -5,7 +5,7 @@ import { CustomCaloriesModal } from './components/customcaloriesmodal.tsx';
 import { AddNewFoodModal } from './components/addnewfoodmodal.tsx';
 import { Pen, PlusIcon, SearchIcon, Trash } from 'lucide-react';
 import './modifyroute.scss';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TextField } from '../../../stories/components/TextField/TextField.tsx';
 import { List } from '../../../stories/components/List/List.tsx';
 import { ListItem } from '../../../stories/components/List/ListItem.tsx';
@@ -19,6 +19,7 @@ import { deepClone } from '../../utils/deepclone.ts';
 import { ModifyCaloriesModal } from './components/modifycaloriesmodal.tsx';
 import { useNavigate, useParams } from 'react-router';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { useCurrentDayCalories } from '../../hooks/usecurrentdaycalories.tsx';
 
 interface FoodItem {
     id: number;
@@ -42,6 +43,7 @@ export function ModifyRoute() {
     const [query, setQuery] = useState('');
     const [selectedItemId, setSelectedItemId] = useState(0);
     const [selectedItemName, setSelectedItemName] = useState('');
+    const currentDayCalories = useCurrentDayCalories(dateString, nutrition);
 
     useEffect(() => {
         if (!isValid(datetime)) {
@@ -77,16 +79,6 @@ export function ModifyRoute() {
         setSelectedItemName(selectedItemName);
         setOpen(true); // Open the modal
     }
-
-    const currentDayCalories = useMemo(() => {
-        if (!nutrition[dateString]) {
-            return 0;
-        }
-        return nutrition[dateString].reduce(
-            (totalCalories, food) => totalCalories + food.calories,
-            0
-        );
-    }, [dateString, nutrition]);
 
     const [targetCalories] = useTargetCaloriesLocalStorage();
 
