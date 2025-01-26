@@ -5,7 +5,7 @@ import { CustomCaloriesModal } from './components/customcaloriesmodal.tsx';
 import { AddNewFoodModal } from './components/addnewfoodmodal.tsx';
 import { Pen, PlusIcon, SearchIcon, Trash } from 'lucide-react';
 import './modifyroute.scss';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useListData } from 'react-stately';
 import { TextField } from '../../../stories/components/TextField/TextField.tsx';
 import { List } from '../../../stories/components/List/List.tsx';
