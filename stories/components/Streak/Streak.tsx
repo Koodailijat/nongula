@@ -21,8 +21,9 @@ export const Streak: React.FC = () => {
                 localStorage.getItem('nutrition') || '{}'
             ) as StreakData;
             const sortedDateKeys = Object.keys(nutritionData).sort(
-                (dateA, dateB) =>
-                    new Date(dateB).getTime() - new Date(dateA).getTime()
+                (newerDate, olderDate) =>
+                    new Date(olderDate).getTime() -
+                    new Date(newerDate).getTime()
             );
 
             let consecutiveStreak = 0;
