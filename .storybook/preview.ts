@@ -1,5 +1,5 @@
 import type { Preview } from '@storybook/react';
-import '../stories/_nongula.scss';
+import '../stories/_components.scss';
 
 const preview: Preview = {
     parameters: {
