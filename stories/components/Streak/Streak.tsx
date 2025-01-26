@@ -11,42 +11,42 @@ type CalorieData = {
 type StreakData = Record<string, CalorieData[]>;
 
 export const Streak: React.FC = () => {
-    const [streak, setStreak] = useState<number | null>(null);
+    const [streakCount, setStreakCount] = useState<number | null>(null);
 
     const [targetCalories] = useTargetCaloriesLocalStorage();
 
     useEffect(() => {
         const calculateStreak = () => {
-            const data = JSON.parse(
+            const nutritionData = JSON.parse(
                 localStorage.getItem('nutrition') || '{}'
             ) as StreakData;
-            const sortedDates = Object.keys(data).sort(
-                (a, b) => new Date(b).getTime() - new Date(a).getTime()
+            const sortedDateKeys = Object.keys(nutritionData).sort(
+                (dateA, dateB) =>
+                    new Date(dateB).getTime() - new Date(dateA).getTime()
             );
 
-            let streakCount = 0;
+            let consecutiveStreak = 0;
 
-            for (const date of sortedDates) {
-                const dailyCalories = data[date].reduce(
-                    (sum, entry) => sum + entry.calories,
+            for (const dateKey of sortedDateKeys) {
+                const totalDailyCalories = nutritionData[dateKey].reduce(
+                    (calorieSum, entry) => calorieSum + entry.calories,
                     0
                 );
-                console.log(dailyCalories);
                 if (
-                    dailyCalories > targetCalories * 0.8 &&
-                    dailyCalories < targetCalories * 1.1
+                    totalDailyCalories > targetCalories * 0.8 &&
+                    totalDailyCalories < targetCalories * 1.1
                 ) {
-                    streakCount += 1;
+                    consecutiveStreak += 1;
                 } else {
                     break;
                 }
             }
 
-            setStreak(streakCount);
+            setStreakCount(consecutiveStreak);
         };
 
         calculateStreak();
-    }, []);
+    }, [targetCalories]);
 
-    return <div>{streak !== null && <Badge>{streak}🔥</Badge>}</div>;
+    return <div>{streakCount !== null && <Badge>{streakCount}🔥</Badge>}</div>;
 };
