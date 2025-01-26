@@ -15,6 +15,7 @@ import { useCurrentDayCalories } from '../../hooks/usecurrentdaycalories.tsx';
 import { useNongulaCalendarState } from '../../../stories/components/Calendar/useNongulaCalendarState.tsx';
 import { useSelectedDate } from '../../../stories/components/Calendar/useSelectedDate.tsx';
 import { getCellStyle } from './getcellstyle.ts';
+import { Streak } from '../../../stories/components/Streak/Streak.tsx';
 
 export function DashboardRoute() {
     const navigate = useNavigate();
@@ -32,11 +33,7 @@ export function DashboardRoute() {
         <div className="dashboard">
             <div className="dashboard__header">
                 <Heading level={1}>{format(selectedDate, 'LLLL do')}</Heading>
-                <Badge>
-                    <Text mode="secondary" size="large">
-                        4 🔥
-                    </Text>
-                </Badge>
+                <Streak></Streak>
             </div>
             <div className="dashboard__content">
                 <CircularProgressBar
