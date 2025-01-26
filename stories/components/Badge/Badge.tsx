@@ -1,13 +1,9 @@
 import { ComponentProps } from 'react';
 
-type BadgeProps = ComponentProps<'span'> & {
-    children?: React.ReactNode;
-};
-/** Primary UI component for badge */
-export const Badge = ({ children, ...props }: BadgeProps) => {
+export function Badge({ children, ...props }: ComponentProps<'span'>) {
     return (
-        <div className={'badge-wrapper'}>
+        <div className="badge-wrapper">
             <span {...props}>{children}</span>
         </div>
     );
-};
+}

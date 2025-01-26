@@ -59,21 +59,21 @@ export function CircularProgressBar({
                 x="50%"
                 y="38%"
                 textAnchor="middle"
-                className={'circular-progress-bar__text'}>
+                className="circular-progress-bar__text">
                 {heading}
             </text>
             <text
                 x="50%"
                 y={!heading && target ? '50%' : '52%'}
                 textAnchor="middle"
-                className={'circular-progress-bar__text-value'}>
+                className="circular-progress-bar__text-value">
                 {target ? `${value}` : `${value}%`}
             </text>
             <text
                 x="50%"
                 y={!heading && target ? '60%' : '62%'}
                 textAnchor="middle"
-                className={'circular-progress-bar__text'}>
+                className="circular-progress-bar__text">
                 {target ? `/ ${target ?? `${target}`}` : ''}
             </text>
         </svg>

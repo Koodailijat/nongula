@@ -1,9 +1,9 @@
+import './_nongula.scss';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import { ErrorRoute } from './routes/errorroute/errorroute.tsx';
 import { ModifyRoute } from './routes/modifyroute/modifyroute.tsx';
 import { DashboardRoute } from './routes/dashboardroute/dashboardroute.tsx';
-import '../stories/_nongula.scss';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 // Create a QueryClient instance
@@ -13,7 +13,7 @@ const root = document.getElementById('root')!;
 
 ReactDOM.createRoot(root).render(
     <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
             <Routes>
                 <Route path={'*'} element={<ErrorRoute />} />
                 <Route path={'/'} element={<DashboardRoute />} />

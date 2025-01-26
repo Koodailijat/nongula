@@ -35,7 +35,7 @@ export const TextField = ({
 }: TextFieldProps) => {
     return (
         <RATextfield className="textfield" {...props}>
-            <RALabel className={'RALabel'}>{label}</RALabel>
+            <RALabel className="RALabel">{label}</RALabel>
             <div className="input-container">
                 {iconSide === 'left' && icon && (
                     <div className="textfield-icon textfield-icon--left">

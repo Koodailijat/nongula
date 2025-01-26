@@ -27,11 +27,12 @@ export function CustomCaloriesModal({
     const [calories, setCalories] = useNutritionLocalStorage();
     const segments = ['Total', 'Kcal / g'];
     const datetime = useParams().date!;
-    const onChange = (nextValue: boolean) => {
-        setOpen(nextValue);
-    };
 
-    const onAdd = () => {
+    function onChange(nextValue: boolean) {
+        setOpen(nextValue);
+    }
+
+    function onAdd() {
         const newCalories = deepClone(calories);
         const caloriesValue =
             totalCalories === 0 ? kcal * (weight / 100) : totalCalories;
@@ -47,7 +48,7 @@ export function CustomCaloriesModal({
         setTotalCalories(0);
         setCalories(newCalories);
         setOpen(false);
-    };
+    }
 
     return (
         <Modal
@@ -55,7 +56,7 @@ export function CustomCaloriesModal({
             isOpen={isOpen}
             onChange={onChange}
             aria-label="Custom calories modal">
-            <div className={'custom-modal'} aria-label="Custom calories modal">
+            <div className="custom-modal" aria-label="Custom calories modal">
                 <Heading level={2} slot="title">
                     Custom calories
                 </Heading>
@@ -73,8 +74,8 @@ export function CustomCaloriesModal({
                     />
                     {selected === 0 ? (
                         <TextField
-                            label={'Total calories'}
-                            placeholder={'Input calories'}
+                            label="Total calories"
+                            placeholder="Input calories"
                             onChange={(value) =>
                                 setTotalCalories(Number(value))
                             }

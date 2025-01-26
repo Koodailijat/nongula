@@ -13,7 +13,7 @@ import { useCurrentDayCalories } from '../../hooks/usecurrentdaycalories.tsx';
 import { useNongulaCalendarState } from '../../../stories/components/Calendar/useNongulaCalendarState.tsx';
 import { useSelectedDate } from '../../../stories/components/Calendar/useSelectedDate.tsx';
 import { getCellStyle } from './getcellstyle.ts';
-import { Streak } from './Streak/Streak.tsx';
+import { Streak } from './components/Streak.tsx';
 
 export function DashboardRoute() {
     const navigate = useNavigate();

@@ -35,9 +35,9 @@ export function Modal({
     size = 'small',
     ...props
 }: ModalProps) {
-    const onOpenChange = (nextValue: boolean) => {
+    function onOpenChange(nextValue: boolean) {
         if (props.onChange) props.onChange(nextValue);
-    };
+    }
 
     return (
         <RAModalOverlay

@@ -16,7 +16,7 @@ import { useDateParamToDate } from '../../hooks/usedateparamtodate.tsx';
 import { useNutritionLocalStorage } from '../../hooks/usenutritionlocalstorage.tsx';
 import { useTargetCaloriesLocalStorage } from '../../hooks/usetargetcalorieslocalstorage.tsx';
 import { deepClone } from '../../utils/deepclone.ts';
-import { ModifCaloriesModal } from './components/modifycaloriesmodal.tsx';
+import { ModifyCaloriesModal } from './components/modifycaloriesmodal.tsx';
 import { useNavigate, useParams } from 'react-router';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
@@ -50,7 +50,7 @@ export function ModifyRoute() {
         }
     }, [datetime, isoDateString, navigate]);
 
-    const fetchFoodItems = async (query: string): Promise<FoodItem[]> => {
+    async function fetchFoodItems(query: string): Promise<FoodItem[]> {
         const response = await fetch(
             `https://fineli.fi/fineli/api/v1/foods?q=${query}`
         );
@@ -59,7 +59,7 @@ export function ModifyRoute() {
         }
         const data: FoodItem[] = await response.json();
         return data.slice(0, 5); // Get the first 5 results
-    };
+    }
 
     const {
         data: items = [],
@@ -72,11 +72,11 @@ export function ModifyRoute() {
         placeholderData: keepPreviousData, // Keep previous data while fetching new data
     });
 
-    const handleIconClick = (energyKcal: number, selectedItemName: string) => {
+    function handleIconClick(energyKcal: number, selectedItemName: string) {
         setSelectedItemId(energyKcal); // Set the selected item's id
         setSelectedItemName(selectedItemName);
         setOpen(true); // Open the modal
-    };
+    }
 
     const currentDayCalories = useMemo(() => {
         if (!nutrition[dateString]) {
@@ -87,19 +87,21 @@ export function ModifyRoute() {
             0
         );
     }, [dateString, nutrition]);
+
     const [targetCalories] = useTargetCaloriesLocalStorage();
-    const onDelete = (id: string) => {
+
+    function onDelete(id: string) {
         const newNutrition = deepClone(nutrition);
         newNutrition[dateString] = newNutrition[dateString].filter(
             (food) => food.id !== id
         );
         setNutrition(newNutrition);
-    };
+    }
 
-    const onModifyPress = (id: string) => {
+    function onModifyPress(id: string) {
         setId(id);
         setIsModifyModalOpen(true);
-    };
+    }
 
     return (
         <div className="modify-route">
@@ -125,7 +127,7 @@ export function ModifyRoute() {
                 {isLoading && <Text>Loading...</Text>}
                 {isError && <Text>Error fetching data.</Text>}
                 {items.length > 0 && (
-                    <div className={'search-results'}>
+                    <div className="search-results">
                         <List className="food-list" items={items}>
                             {({ id, name, energyKcal }) => (
                                 <ListItem
@@ -173,8 +175,8 @@ export function ModifyRoute() {
                                         display: 'flex',
                                         flexDirection: 'column',
                                     }}>
-                                    <Text size={'large'}>{name}</Text>
-                                    <Text size={'large'}>
+                                    <Text size="large">{name}</Text>
+                                    <Text size="large">
                                         {calories} calories
                                     </Text>
                                 </div>
@@ -207,7 +209,7 @@ export function ModifyRoute() {
                     isOpen={isCustomCaloriesOpen}
                     setOpen={setCustomCaloriesOpen}
                 />
-                <ModifCaloriesModal
+                <ModifyCaloriesModal
                     foodId={id}
                     isOpen={isModifyModalOpen}
                     setOpen={setIsModifyModalOpen}
