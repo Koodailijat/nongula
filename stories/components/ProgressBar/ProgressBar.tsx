@@ -25,7 +25,7 @@ export const ProgressBar = ({
             <div className="progress-bar__bar">
                 <div
                     className="progress-bar__bar-fill"
-                    style={{ width: value / target + '%' }}
+                    style={{ width: (value / target) * 100 + '%' }}
                 />
             </div>
         </RAProgressBar>
