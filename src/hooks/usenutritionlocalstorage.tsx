@@ -1,6 +1,6 @@
 import { useLocalStorage } from 'usehooks-ts';
-import { Calories } from '../../stories/components/Calendar/Calendar.tsx';
+import { NutritionData } from '../types/nutrition.ts';
 
 export function useNutritionLocalStorage() {
-    return useLocalStorage<Calories>('nutrition', {});
+    return useLocalStorage<NutritionData>('nutrition', {});
 }

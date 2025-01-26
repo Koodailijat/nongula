@@ -1,7 +1,10 @@
-import { Calories } from '../../stories/components/Calendar/Calendar.tsx';
 import { useMemo } from 'react';
+import { NutritionData } from '../types/nutrition.ts';
 
-export function useCurrentDayCalories(ISODate: string, nutrition: Calories) {
+export function useCurrentDayCalories(
+    ISODate: string,
+    nutrition: NutritionData
+) {
     return useMemo(
         () =>
             nutrition?.[ISODate]?.length
