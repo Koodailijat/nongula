@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Calendar } from './Calendar.tsx';
 import { useNongulaCalendarState } from './useNongulaCalendarState.tsx';
+import { getCellStyle } from '../../../src/routes/dashboardroute/getcellstyle.ts';
 
 const meta: Meta<typeof Calendar> = {
     component: Calendar,
@@ -83,6 +84,7 @@ export const Default: Story = {
                 state={state}
                 locale={locale.locale}
                 targetCalories={2150}
+                cellStyleFn={getCellStyle}
             />
         );
     },
