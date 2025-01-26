@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Badge } from '../Badge/Badge.tsx';
-import { useTargetCaloriesLocalStorage } from '../../../src/hooks/usetargetcalorieslocalstorage.tsx';
-import { NutritionData, Item } from '../../../src/types/nutrition.ts';
+import { Badge } from '../../../../stories/components/Badge/Badge.tsx';
+import { useTargetCaloriesLocalStorage } from '../../../hooks/usetargetcalorieslocalstorage.tsx';
+import { NutritionData, Item } from '../../../types/nutrition.ts';
 
 export const Streak: React.FC = () => {
     const [streakCount, setStreakCount] = useState<number | null>(null);
