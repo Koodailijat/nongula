@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Button } from '../../../../stories/components/Button/Button.tsx';
 import { Modal } from '../../../../stories/components/Modal/Modal.tsx';
 import { Heading } from '../../../../stories/components/Heading/Heading.tsx';
@@ -26,16 +26,21 @@ export function AddNewFoodModal({
         setOpen(nextValue);
     };
 
-    console.log('Testi');
-    console.log(name, itemId);
-
-    const kalories: number = Math.round(itemId);
     const [weight, setWeight] = useState(0);
     const datetime = useParams().date!;
     const [totalCalories, setTotalCalories] = useState(0);
     const [calories, setCalories] = useNutritionLocalStorage();
     const [kcal, setKcal] = useState(0);
+
     const [foodName, setFoodName] = useState(name);
+
+    useEffect(() => {
+        setFoodName(name);
+    }, [name]);
+
+    useEffect(() => {
+        setKcal(Math.round(itemId));
+    }, [itemId]);
 
     const onAdd = () => {
         const newCalories = deepClone(calories);
@@ -72,8 +77,7 @@ export function AddNewFoodModal({
     return (
         <Modal isOpen={isOpen} onChange={onChange}>
             <div className={'custom-modal'}>
-                <Heading level={2}>Läski calories</Heading>
-                {itemId}
+                <Heading level={2}>Add chosen food</Heading>
                 <TextField
                     isRequired={true}
                     label="Food name"
@@ -86,6 +90,8 @@ export function AddNewFoodModal({
                         label="Calories (Kcal / 100g)"
                         placeholder="Calories (Kcal / 100g)"
                         onChange={(value) => setKcal(Number(value))}
+                        isDisabled={true}
+                        value={kcal.toString()}
                     />
                     <TextField
                         label="Weight (g)"
