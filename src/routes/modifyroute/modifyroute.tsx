@@ -2,30 +2,81 @@ import { Heading } from '../../../stories/components/Heading/Heading.tsx';
 import { ProgressBar } from '../../../stories/components/ProgressBar/ProgressBar.tsx';
 import { Button } from '../../../stories/components/Button/Button.tsx';
 import { CustomCaloriesModal } from './components/customcaloriesmodal.tsx';
+import { AddNewFoodModal } from './components/addnewfoodmodal.tsx';
 import { Pen, PlusIcon, SearchIcon, Trash } from 'lucide-react';
 import './modifyroute.scss';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { TextField } from '../../../stories/components/TextField/TextField.tsx';
 import { List } from '../../../stories/components/List/List.tsx';
 import { ListItem } from '../../../stories/components/List/ListItem.tsx';
 import { IconButton } from '../../../stories/components/IconButton/IconButton.tsx';
 import { Text } from '../../../stories/components/Text/Text.tsx';
-import { format } from 'date-fns';
+import { format, isValid } from 'date-fns';
 import { useDateParamToDate } from '../../hooks/usedateparamtodate.tsx';
 import { useNutritionLocalStorage } from '../../hooks/usenutritionlocalstorage.tsx';
-import { useParams } from 'react-router';
 import { useTargetCaloriesLocalStorage } from '../../hooks/usetargetcalorieslocalstorage.tsx';
 import { deepClone } from '../../utils/deepclone.ts';
 import { ModifCaloriesModal } from './components/modifycaloriesmodal.tsx';
+import { useNavigate, useParams } from 'react-router';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+
+interface FoodItem {
+    id: number;
+    name: {
+        fi: string;
+        en: string;
+    };
+    energyKcal: number;
+}
 
 export function ModifyRoute() {
-    const [isCustomCaloriesModalOpen, setIsCustomCaloriesModalOpen] =
-        useState(false);
     const [isModifyModalOpen, setIsModifyModalOpen] = useState(false);
+    const [isOpen, setOpen] = useState(false);
+    const [isCustomCaloriesOpen, setCustomCaloriesOpen] = useState(false);
+    const isoDateString = useParams().date;
     const datetime = useDateParamToDate();
     const dateString = useParams().date!;
     const [nutrition, setNutrition] = useNutritionLocalStorage();
     const [id, setId] = useState('');
+    const navigate = useNavigate();
+    const [query, setQuery] = useState('');
+    const [selectedItemId, setSelectedItemId] = useState(0);
+    const [selectedItemName, setSelectedItemName] = useState('');
+
+    useEffect(() => {
+        if (!isValid(datetime)) {
+            navigate('/');
+            return;
+        }
+    }, [datetime, isoDateString, navigate]);
+
+    const fetchFoodItems = async (query: string): Promise<FoodItem[]> => {
+        const response = await fetch(
+            `https://fineli.fi/fineli/api/v1/foods?q=${query}`
+        );
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        const data: FoodItem[] = await response.json();
+        return data.slice(0, 5); // Get the first 5 results
+    };
+
+    const {
+        data: items = [],
+        isLoading,
+        isError,
+    } = useQuery({
+        queryKey: ['foodItems', query],
+        queryFn: () => fetchFoodItems(query),
+        enabled: query.trim() !== '', // Only fetch when query is not empty
+        placeholderData: keepPreviousData, // Keep previous data while fetching new data
+    });
+
+    const handleIconClick = (energyKcal: number, selectedItemName: string) => {
+        setSelectedItemId(energyKcal); // Set the selected item's id
+        setSelectedItemName(selectedItemName);
+        setOpen(true); // Open the modal
+    };
 
     const currentDayCalories = useMemo(() => {
         if (!nutrition[dateString]) {
@@ -67,7 +118,43 @@ export function ModifyRoute() {
                     iconSide={'left'}
                     icon={<SearchIcon />}
                     placeholder={'Search'}
+                    value={query}
+                    onChange={(value) => setQuery(value)}
                 />
+                {/* List component to display results */}
+                {isLoading && <Text>Loading...</Text>}
+                {isError && <Text>Error fetching data.</Text>}
+                {items.length > 0 && (
+                    <div className={'search-results'}>
+                        <List className="food-list" items={items}>
+                            {({ id, name, energyKcal }) => (
+                                <ListItem
+                                    className="modify-route__list-item"
+                                    key={id}
+                                    id={id}
+                                    textValue={name.fi}>
+                                    <Text>{name.fi}</Text>
+                                    <div className="modify-route__list-actions">
+                                        <IconButton
+                                            icon={
+                                                <PlusIcon
+                                                    strokeWidth={2}
+                                                    color="green"
+                                                />
+                                            }
+                                            onPress={() => {
+                                                handleIconClick(
+                                                    energyKcal,
+                                                    name.fi
+                                                );
+                                            }}
+                                        />
+                                    </div>
+                                </ListItem>
+                            )}
+                        </List>
+                    </div>
+                )}
                 <List
                     className="modify-route__list"
                     items={nutrition[dateString]}>
@@ -111,19 +198,25 @@ export function ModifyRoute() {
                     }}
                 </List>
                 <Button
-                    onPress={() => setIsCustomCaloriesModalOpen(true)}
+                    onPress={() => setCustomCaloriesOpen(true)}
                     size="large"
                     icon={<PlusIcon size="16" />}>
                     Add custom calories
                 </Button>
                 <CustomCaloriesModal
-                    isOpen={isCustomCaloriesModalOpen}
-                    setOpen={setIsCustomCaloriesModalOpen}
+                    isOpen={isCustomCaloriesOpen}
+                    setOpen={setCustomCaloriesOpen}
                 />
                 <ModifCaloriesModal
                     foodId={id}
                     isOpen={isModifyModalOpen}
                     setOpen={setIsModifyModalOpen}
+                />
+                <AddNewFoodModal
+                    isOpen={isOpen}
+                    setOpen={setOpen}
+                    itemId={selectedItemId}
+                    name={selectedItemName}
                 />
             </div>
         </div>
