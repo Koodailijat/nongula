@@ -9,6 +9,13 @@ interface CircularProgressBarProps {
     target?: number;
 }
 
+function getColor(value: number) {
+    if (value < 1.3) {
+        return '#519A58';
+    }
+    return '#941515';
+}
+
 export function CircularProgressBar({
     value,
     heading,
@@ -40,7 +47,7 @@ export function CircularProgressBar({
                 cx="150"
                 cy="150"
                 fill="transparent"
-                stroke="#519A58"
+                stroke={getColor(value / targetValue)}
                 pathLength="100"
                 strokeWidth="1.25rem"
                 strokeDasharray={`${(value / targetValue) * 100} ${100 - (value / targetValue) * 100}`}
