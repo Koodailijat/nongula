@@ -3,6 +3,16 @@ import {
     Label as RALabel,
 } from 'react-aria-components';
 
+function getColor(value: number) {
+    if (value < 1.1) {
+        return '#519a58';
+    } else if (value < 1.3) {
+        return '#bcba29';
+    } else if (value < 1.5) {
+        return '#c23b26';
+    }
+    return '#941515';
+}
 interface ProgressBarProps {
     label: string;
     targetValue?: number;
@@ -25,7 +35,10 @@ export const ProgressBar = ({
             <div className="progress-bar__bar">
                 <div
                     className="progress-bar__bar-fill"
-                    style={{ width: (value / target) * 100 + '%' }}
+                    style={{
+                        width: (value / target) * 100 + '%',
+                        background: getColor(value / target),
+                    }}
                 />
             </div>
         </RAProgressBar>

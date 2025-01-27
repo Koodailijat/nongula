@@ -12,11 +12,11 @@ function getColor(value: number) {
         return '#0b9244';
     } else if (value < 0.8) {
         return '#008537';
-    } else if (value < 0.9) {
-        return '#006824';
     } else if (value < 1.1) {
-        return '#bcba29';
+        return '#006824';
     } else if (value < 1.3) {
+        return '#bcba29';
+    } else if (value < 1.5) {
         return '#c23b26';
     }
     return '#941515';
