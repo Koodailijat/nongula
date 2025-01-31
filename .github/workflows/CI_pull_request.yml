@@ -17,6 +17,9 @@ jobs:
             - name: Lint
               run: npm run lint
     prettier:
+        defaults:
+            run:
+                working-directory: './frontend'
         name: Formatter check
         runs-on: ubuntu-latest
         steps:
@@ -26,6 +29,9 @@ jobs:
             - name: Prettier
               run: npm run prettier
     ts-check:
+        defaults:
+            run:
+                working-directory: './frontend'
         name: TypeScript check
         runs-on: ubuntu-latest
         steps:
