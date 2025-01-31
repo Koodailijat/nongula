@@ -16,7 +16,7 @@ jobs:
               run: npm ci
     lint:
         name: Linter check
-        needs: install-dependencies
+        needs: [install-dependencies]
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -24,7 +24,7 @@ jobs:
               run: npm run lint
     prettier:
         name: Formatter check
-        needs: install-dependencies
+        needs: [install-dependencies]
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
