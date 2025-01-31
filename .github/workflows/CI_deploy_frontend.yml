@@ -18,8 +18,8 @@ concurrency:
 jobs:
     deploy:
         defaults:
-          run:
-            working-directory: './frontend'
+            run:
+                working-directory: './frontend'
         name: GH Pages deploy
         environment:
             name: github-pages
