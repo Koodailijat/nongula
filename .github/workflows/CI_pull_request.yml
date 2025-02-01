@@ -12,7 +12,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
-            - name: Install Dependencies
+            - name: Install root Dependencies
               run: npm ci
             - name: Lint
               run: npm run lint
@@ -21,7 +21,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
-            - name: Install Dependencies
+            - name: Install root Dependencies
               run: npm ci
             - name: Prettier
               run: npm run prettier
@@ -30,7 +30,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
-            - name: Install Dependencies
+            - name: Install root Dependencies
               run: npm ci
+            - name: Install frontend dependencies
+              run: npm ci --prefix ./frontend
             - name: TypeScript check
               run: npm run ts-check
