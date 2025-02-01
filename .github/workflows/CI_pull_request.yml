@@ -15,7 +15,7 @@ jobs:
             - name: Install Dependencies
               run: npm ci
             - name: Install frontend dependencies
-              run: npm ci --prefix /frontend
+              run: npm ci --prefix ./frontend
     lint:
         name: Linter check
         needs: [install-dependencies]
