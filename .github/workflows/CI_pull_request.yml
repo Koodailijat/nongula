@@ -8,12 +8,14 @@ on:
 
 jobs:
     install-dependencies:
-        name: Install dependencies
+        name: Install root dependencies
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
             - name: Install Dependencies
               run: npm ci
+            - name: Install frontend dependencies
+              run: npm ci --prefix /frontend
     lint:
         name: Linter check
         needs: [install-dependencies]
@@ -31,9 +33,6 @@ jobs:
             - name: Prettier
               run: npm run prettier
     ts-check:
-        defaults:
-            run:
-                working-directory: './frontend'
         name: TypeScript check
         runs-on: ubuntu-latest
         steps:
