@@ -4,7 +4,6 @@ import { prisma } from '../utils/prisma.js';
 import createHttpError from 'http-errors';
 
 export const addFood = [
-    // Validation middleware for request body
     body('date', 'Date must be a valid ISO 8601 date')
         .isISO8601()
         .withMessage('Invalid date format'),
@@ -24,7 +23,6 @@ export const addFood = [
                 return;
             }
 
-            // Assuming user ID is attached to the request by passport middleware
             const userId = (req.user as { id: string })?.id;
 
             if (!userId) {
@@ -33,7 +31,6 @@ export const addFood = [
 
             const { date, calories, name } = req.body;
 
-            // Save the food log associated with the user
             const foodLog = await prisma.foodLog.create({
                 data: {
                     date: new Date(date),
