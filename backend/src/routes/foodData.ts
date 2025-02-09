@@ -4,7 +4,7 @@ export const router_food = Router();
 import { addFood } from '../controllers/foodData.js';
 
 router_food.post(
-    '/addFood',
+    '/food',
     passport.authenticate('jwt', { session: false }),
     addFood
 );
