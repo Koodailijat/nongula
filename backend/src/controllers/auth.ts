@@ -62,6 +62,7 @@ export const login = [
     body('password', 'Password must be defined').isLength({ min: 1 }),
     async (req: Request, res: Response, next: NextFunction) => {
         try {
+            console.log(req.body);
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 res.status(400).json({ errors: errors.array() });
