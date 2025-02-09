@@ -6,6 +6,16 @@
 npm install
 ```
 
+Setup development database
+```
+npx prisma migrate dev
+```
+
+View development database
+```
+npx prisma studio
+```
+
 Starting development server
 
 ```
