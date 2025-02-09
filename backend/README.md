@@ -17,4 +17,5 @@ npm run dev
 ```
 DATABASE_URL="postgresql://username:password@host:port/database?schema=public"
 AUTH_SECRET="secret"
+PORT=3000
 ```
