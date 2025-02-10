@@ -77,14 +77,15 @@ export const deleteFood = [
 
             const foodLog = await prisma.foodLog.findFirst({
                 where: {
-                    date: new Date(date),
-                    name,
-                    userId,
+                    date: date,
+                    name: name,
+                    userId: userId,
                 },
             });
 
             if (!foodLog) {
-                return res.status(404).json({ message: 'Food log not found' });
+                res.status(404).json({ message: 'Food log not found' });
+                return;
             }
 
             await prisma.foodLog.delete({
@@ -94,6 +95,7 @@ export const deleteFood = [
             });
 
             res.status(200).json({ message: 'Food log deleted successfully' });
+            return;
         } catch (error) {
             console.error('Error deleting food log:', error);
             next(createHttpError(500, 'Internal server error'));
