@@ -23,11 +23,7 @@ export const addFood = [
                 return;
             }
 
-            const userId = (req.user as { id: string })?.id;
-
-            if (!userId) {
-                return next(createHttpError(401, 'User not authenticated'));
-            }
+            const userId = req.user.id;
 
             const { date, calories, name } = req.body;
 

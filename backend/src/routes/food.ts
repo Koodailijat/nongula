@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import passport from 'passport';
 export const router_food = Router();
-import { addFood, deleteFood, getFoodById } from '../controllers/foodData.js';
+import { addFood, deleteFood, getFoodById } from '../controllers/food';
 
 router_food.post(
     '/food',

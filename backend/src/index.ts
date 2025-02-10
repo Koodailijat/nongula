@@ -5,7 +5,7 @@ import passport from 'passport';
 import morgan from 'morgan';
 import { jwtStrategy } from './strategies/jwt.js';
 import { router } from './routes/auth.js';
-import { router_food } from './routes/foodData.js';
+import { router_food } from './routes/food';
 import { unknownEndpoint } from './middlewares/unkownendpoint.js';
 import { errorHandler } from './middlewares/errorhandler.js';
 
