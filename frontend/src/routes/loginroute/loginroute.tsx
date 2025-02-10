@@ -7,7 +7,7 @@ import { Form } from 'react-aria-components';
 import { Heading } from '../../../stories/components/Heading/Heading.tsx';
 import { FormTextField } from '../../../stories/components/FormTextField/FormTextField.tsx';
 import { Lock, User } from 'lucide-react';
-import { LoginSchema } from '../../schemas/LoginSchema.ts';
+import { LoginSchema } from '../../lib/schemas/LoginSchema.ts';
 import { LoginDto } from '../../types/LoginDto.ts';
 
 export function LoginRoute() {

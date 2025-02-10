@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Form } from 'react-aria-components';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { SignUpSchema } from '../../schemas/SignUpSchema.ts';
+import { SignUpSchema } from '../../lib/schemas/SignUpSchema.ts';
 import { SignUpDto } from '../../types/SignUpDto.ts';
 import { FormTextField } from '../../../stories/components/FormTextField/FormTextField.tsx';
 import { Heading } from '../../../stories/components/Heading/Heading.tsx';
