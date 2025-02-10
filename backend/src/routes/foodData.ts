@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import passport from 'passport';
 export const router_food = Router();
-import { addFood, deleteFood } from '../controllers/foodData.js';
+import { addFood, deleteFood, getFoodById } from '../controllers/foodData.js';
 
 router_food.post(
     '/food',
@@ -13,4 +13,10 @@ router_food.delete(
     '/food/:id',
     passport.authenticate('jwt', { session: false }),
     deleteFood
+);
+
+router_food.get(
+    '/food/:id',
+    passport.authenticate('jwt', { session: false }),
+    getFoodById
 );

@@ -1,4 +1,4 @@
-import { body, validationResult } from 'express-validator';
+import { body, param, validationResult } from 'express-validator';
 import { Request, Response, NextFunction } from 'express';
 import { prisma } from '../utils/prisma.js';
 import createHttpError from 'http-errors';
@@ -98,6 +98,50 @@ export const deleteFood = [
             return;
         } catch (error) {
             console.error('Error deleting food log:', error);
+            next(createHttpError(500, 'Internal server error'));
+        }
+    },
+];
+
+export const getFoodById = [
+    param('id', 'ID must be a valid UUID')
+        .isUUID()
+        .withMessage('Invalid ID format'),
+
+    async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                res.status(400).json({ errors: errors.array() });
+                return;
+            }
+
+            const userId = (req.user as { id: string })?.id;
+
+            if (!userId) {
+                return next(createHttpError(401, 'User not authenticated'));
+            }
+
+            const { id } = req.params;
+
+            const foodLog = await prisma.foodLog.findFirst({
+                where: {
+                    id: id,
+                    userId: userId,
+                },
+            });
+
+            if (!foodLog) {
+                res.status(404).json({ message: 'Food log not found' });
+                return;
+            }
+
+            const { userId: _, ...foodLogData } = foodLog;
+
+            res.status(200).json(foodLogData);
+            return;
+        } catch (error) {
+            console.error('Error fetching food log:', error);
             next(createHttpError(500, 'Internal server error'));
         }
     },
