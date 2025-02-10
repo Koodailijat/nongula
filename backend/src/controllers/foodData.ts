@@ -44,8 +44,7 @@ export const addFood = [
 
             res.status(201).json(foodLog);
         } catch (error) {
-            console.error('Error adding food log:', error);
-            next(createHttpError(500, 'Internal server error'));
+            return next(error);
         }
     },
 ];
@@ -67,11 +66,7 @@ export const deleteFood = [
                 return;
             }
 
-            const userId = (req.user as { id: string })?.id;
-
-            if (!userId) {
-                return next(createHttpError(401, 'User not authenticated'));
-            }
+            const userId = req.user.id;
 
             const { date, name } = req.body;
 
@@ -97,8 +92,7 @@ export const deleteFood = [
             res.status(200).json({ message: 'Food log deleted successfully' });
             return;
         } catch (error) {
-            console.error('Error deleting food log:', error);
-            next(createHttpError(500, 'Internal server error'));
+            return next(error);
         }
     },
 ];
@@ -116,11 +110,7 @@ export const getFoodById = [
                 return;
             }
 
-            const userId = (req.user as { id: string })?.id;
-
-            if (!userId) {
-                return next(createHttpError(401, 'User not authenticated'));
-            }
+            const userId = req.user.id;
 
             const { id } = req.params;
 
@@ -141,8 +131,7 @@ export const getFoodById = [
             res.status(200).json(foodLogData);
             return;
         } catch (error) {
-            console.error('Error fetching food log:', error);
-            next(createHttpError(500, 'Internal server error'));
+            return next(error);
         }
     },
 ];
