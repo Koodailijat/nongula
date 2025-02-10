@@ -10,7 +10,7 @@ router_food.post(
 );
 
 router_food.delete(
-    'food',
+    '/food/:id',
     passport.authenticate('jwt', { session: false }),
-    deletefood
+    deleteFood
 );
