@@ -6,7 +6,7 @@ import tseslint from 'typescript-eslint';
 import react from 'eslint-plugin-react';
 
 export default tseslint.config(
-    { ignores: ['dist'] },
+    { ignores: ['**/dist/**'] },
     {
         files: ['**/*.{ts,tsx}'],
         languageOptions: {
@@ -29,6 +29,14 @@ export default tseslint.config(
             'react-refresh/only-export-components': [
                 'warn',
                 { allowConstantExport: true },
+            ],
+            '@typescript-eslint/no-unused-vars': [
+                'warn',
+                {
+                    argsIgnorePattern: '^_',
+                    varsIgnorePattern: '^_',
+                    caughtErrorsIgnorePattern: '^_',
+                },
             ],
         },
         settings: {
