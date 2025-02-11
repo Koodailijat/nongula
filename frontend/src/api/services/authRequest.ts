@@ -1,5 +1,5 @@
 import { request } from './request.ts';
-import { SignUpDto } from '../../types/SignUpDto.ts';
+import { SignUpInputDto } from '../../types/SignUpDto.ts';
 import { LoginInputDto, LoginOuputDto } from '../../types/LoginDto.ts';
 
 export async function loginRequest(
@@ -15,7 +15,7 @@ export async function loginRequest(
     });
 }
 
-export async function signUpRequest(values: SignUpDto) {
+export async function signUpRequest(values: SignUpInputDto) {
     return request({
         method: 'POST',
         url: 'api/signup',

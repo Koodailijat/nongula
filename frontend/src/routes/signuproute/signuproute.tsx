@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Form } from 'react-aria-components';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SignUpSchema } from '../../lib/schemas/SignUpSchema.ts';
-import { SignUpDto } from '../../types/SignUpDto.ts';
+import { SignUpInputDto } from '../../types/SignUpDto.ts';
 import { FormTextField } from '../../../stories/components/FormTextField/FormTextField.tsx';
 import { Heading } from '../../../stories/components/Heading/Heading.tsx';
 import { Lock, User } from 'lucide-react';
@@ -18,12 +18,12 @@ export function SignUpRoute() {
         formState: { errors },
         handleSubmit,
         setValue,
-    } = useForm<SignUpDto>({
+    } = useForm<SignUpInputDto>({
         resolver: zodResolver(SignUpSchema),
         mode: 'onBlur',
     });
 
-    const onSubmit: SubmitHandler<SignUpDto> = (data: SignUpDto) => {
+    const onSubmit: SubmitHandler<SignUpInputDto> = (data: SignUpInputDto) => {
         signUpMutation.mutate(
             { ...data },
             { onSuccess: () => navigate('/login') }
