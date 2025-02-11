@@ -6,10 +6,11 @@ import { ModifyRoute } from './routes/modifyroute/modifyroute.tsx';
 import { DashboardRoute } from './routes/dashboardroute/dashboardroute.tsx';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './api/queries/queryClient.ts';
-import { SignUpRoute } from './routes/signuproute/signuproute.tsx';
-import { LoginRoute } from './routes/loginroute/loginroute.tsx';
+
 import { AuthGuard } from './utils/AuthGuard.tsx';
-import { RootRoute } from './routes/rootroute/rootroute.tsx';
+import { RootRoute } from './routes/RootRoute/RootRoute.tsx';
+import { SignUpRoute } from './routes/SignUpRoute/SignUpRoute.tsx';
+import { LoginRoute } from './routes/LoginRoute/LoginRoute.tsx';
 
 const root = document.getElementById('root')!;
 

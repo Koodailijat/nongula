@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useAuthLocalStorage } from './useauthlocalstorage.tsx';
+import { useAuthLocalStorage } from './useAuthLocalStorage.tsx';
 
 export function useAuth() {
     const [getAccessToken] = useAuthLocalStorage();
