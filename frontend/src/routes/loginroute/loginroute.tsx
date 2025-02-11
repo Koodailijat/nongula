@@ -1,6 +1,6 @@
 import { Button } from '../../../stories/components/Button/Button.tsx';
 import { useNavigate } from 'react-router';
-import { useLoginMutation } from '../../queries/authQueries.tsx';
+import { useLoginMutation } from '../../api/queries/authQueries.tsx';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from 'react-aria-components';
@@ -8,24 +8,30 @@ import { Heading } from '../../../stories/components/Heading/Heading.tsx';
 import { FormTextField } from '../../../stories/components/FormTextField/FormTextField.tsx';
 import { Lock, User } from 'lucide-react';
 import { LoginSchema } from '../../lib/schemas/LoginSchema.ts';
-import { LoginDto } from '../../types/LoginDto.ts';
+import { LoginInputDto } from '../../types/LoginDto.ts';
 
 export function LoginRoute() {
-    const navigate = useNavigate();
-    const loginMutation = useLoginMutation();
     const {
         register,
         formState: { errors },
         handleSubmit,
         setValue,
-    } = useForm<LoginDto>({
+    } = useForm<LoginInputDto>({
         resolver: zodResolver(LoginSchema),
         mode: 'onBlur',
     });
+    const navigate = useNavigate();
+    const loginMutation = useLoginMutation();
 
-    const onSubmit: SubmitHandler<LoginDto> = (data: LoginDto) => {
-        loginMutation.mutate({ ...data }, { onSuccess: () => navigate('/') });
-        // onerror toast
+    const onSubmit: SubmitHandler<LoginInputDto> = (data: LoginInputDto) => {
+        loginMutation.mutate(
+            { ...data },
+            {
+                onSuccess: () => {
+                    navigate('/dashboard');
+                },
+            }
+        );
     };
 
     return (

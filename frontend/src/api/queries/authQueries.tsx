@@ -1,14 +1,15 @@
-import { storageKeys } from '../constants/storageKeys.ts';
-import { mutationKeys } from '../constants/mutationKeys.ts';
+import { mutationKeys } from '../../constants/mutationKeys.ts';
 import { loginRequest, signUpRequest } from '../services/authRequest.ts';
 import { useMutation } from '@tanstack/react-query';
+import { useAuthLocalStorage } from '../../hooks/useauthlocalstorage.tsx';
 
 export function useLoginMutation() {
+    const [, setAuthState] = useAuthLocalStorage();
     return useMutation({
         mutationFn: loginRequest,
         mutationKey: [mutationKeys.login],
         onSuccess: (data) => {
-            localStorage.setItem(storageKeys.accessToken, data.token);
+            setAuthState(data.token);
         },
     });
 }

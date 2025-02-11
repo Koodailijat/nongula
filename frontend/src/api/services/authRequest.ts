@@ -1,8 +1,10 @@
 import { request } from './request.ts';
-import { SignUpDto } from '../types/SignUpDto.ts';
-import { LoginDto } from '../types/LoginDto.ts';
+import { SignUpDto } from '../../types/SignUpDto.ts';
+import { LoginInputDto, LoginOuputDto } from '../../types/LoginDto.ts';
 
-export async function loginRequest(values: LoginDto) {
+export async function loginRequest(
+    values: LoginInputDto
+): Promise<LoginOuputDto> {
     return request({
         method: 'POST',
         url: 'api/login',

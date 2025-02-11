@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { storageKeys } from '../constants/storageKeys.ts';
+import { storageKeys } from '../../constants/storageKeys.ts';
 
 const axiosConfig = {
     baseURL: import.meta.env.VITE_BASEURL,

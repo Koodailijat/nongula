@@ -1,5 +1,5 @@
 import { Button } from '../../../stories/components/Button/Button.tsx';
-import { useSignUpMutation } from '../../queries/authQueries.tsx';
+import { useSignUpMutation } from '../../api/queries/authQueries.tsx';
 import { useNavigate } from 'react-router';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Form } from 'react-aria-components';
