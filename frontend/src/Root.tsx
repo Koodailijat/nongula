@@ -1,7 +1,6 @@
 import './_nongula.scss';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router';
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ErrorRoute } from './routes/errorroute/ErrorRoute.tsx';
 import { DashboardRoute } from './routes/dashboardroute/DashboardRoute.tsx';
