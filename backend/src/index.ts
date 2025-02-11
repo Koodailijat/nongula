@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import { jwtStrategy } from './strategies/jwt.js';
 import { router } from './routes/auth.js';
+import { router_food } from './routes/food';
 import { unknownEndpoint } from './middlewares/unkownendpoint.js';
 import { errorHandler } from './middlewares/errorhandler.js';
 
@@ -16,6 +17,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/api', router);
+app.use('/api', router_food);
 app.use(unknownEndpoint);
 app.use(errorHandler);
 app.listen(process.env.PORT);
